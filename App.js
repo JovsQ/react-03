@@ -23,6 +23,7 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native';
+import Orientation from 'react-native-orientation'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -85,6 +86,10 @@ class PizzaTranslator extends Component {
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  componentDidMount() {
+    Orientation.lockToLandscape();
+  }
 
   render() {
     let pic = {
