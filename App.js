@@ -6,10 +6,14 @@
 
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Button,
+  FlatList,
   Image,
   Platform,
+  ScrollView,
+  SectionList,
   StyleSheet,
   Text,
   TextInput,
@@ -90,14 +94,23 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <View style={{flex: 1, width: '100%', backgroundColor: 'powderblue'}}>
           <Greeting name='Rexxar' style={styles.bigblue} />
+          <ScrollMePlease />
         </View>
         <View style={{flex: 2, width: '100%', backgroundColor: 'skyblue'}}>
           <Blink text='Jaina' />
           <PizzaTranslator />
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <FlatListBasics style={{flex: 1}}/>
+            <SectionListBasics style={{flex: 1}}/>
+            <FetchExample style={{flex: 1}}/>
+          </View>
+          
         </View>
-        <View style={{flex: 3, width: '100%', backgroundColor: 'steelblue', alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={pic} style={styles.picture} />
-          <Touchables title="OK!"/>
+        <View style={{flex: 3, width: '100%', backgroundColor: 'steelblue'}}>
+          <ScrollView style={{flex: 1, width: '100%'}}>
+            <Image source={pic} style={styles.picture} />
+            <Touchables title="OK!"/>
+          </ScrollView>
         </View>
       </View>
     );
@@ -149,6 +162,139 @@ class Touchables extends Component {
     );
   }
 }
+
+class ScrollMePlease extends Component {
+  render() {
+    return (
+      <ScrollView>
+        <Text style={{fontSize:96}}>Scroll me plz</Text>
+        <Text style={{fontSize:96}}>If you like</Text>
+        <Text style={{fontSize:96}}>Scrolling down</Text>
+        <Text style={{fontSize:96}}>What's the best</Text>
+        <Text style={{fontSize:96}}>Framework around?</Text>
+        <Text style={{fontSize:80}}>React Native</Text>
+      </ScrollView>
+    );
+  }
+}
+
+class FlatListBasics extends Component {
+  render() {
+    return (
+      <View style={customFlatListStyle.container}>
+        <FlatList 
+        data={[
+          {key: 'Devin'},
+          {key: 'Jackson'},
+          {key: 'James'},
+          {key: 'Joel'},
+          {key: 'John'},
+          {key: 'Jillian'},
+          {key: 'Jimmy'},
+          {key: 'Julie'},
+        ]}
+        renderItem={({item}) => <Text style={customFlatListStyle.item}>{item.key}</Text>}
+        />
+      </View>
+    )
+  }
+}
+
+class SectionListBasics extends Component {
+  render() {
+    return (
+      <View style={sectionListStyle.container}>
+        <SectionList 
+        sections={[
+          {title: 'D', data: ['Devin']},
+          {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']}
+        ]}
+        renderItem={({item}) => <Text style={sectionListStyle.item}>{item}</Text>}
+        renderSectionHeader={({section}) => <Text style={sectionListStyle.sectionHeader}>{section.title}</Text>}
+        keyExtractor={(item, index) => index}
+        />
+      </View>
+    )
+  }
+}
+
+class FetchExample extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isLoading: true}
+  }
+
+  componentDidMount(){
+    return fetch('https://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson.movies,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+
+    return (
+      <View style={{flex: 1, paddingTop:20}}>
+        <FlatList 
+        data={this.state.dataSource}
+        renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
+        keyExtractor={(item, index) => index}
+        />
+      </View>
+    )
+  }
+}
+
+const sectionListStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 22,
+  },
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  }
+})
+
+const customFlatListStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 22
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+})
 
 const customButtonStyle = StyleSheet.create({
   container: {
