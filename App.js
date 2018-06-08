@@ -21,7 +21,8 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
-  View
+  View,
+  YellowBox,
 } from 'react-native';
 import Orientation from 'react-native-orientation'
 
