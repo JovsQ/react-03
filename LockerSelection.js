@@ -28,8 +28,9 @@ export default class LockerSelection extends Component {
 
 	render() {
 
-		const itemId = this.props.navigation.getParam('itemId', 'no-id');
-		const otherParam = this	.props.navigation.getParam('otherParam', 'default value'); 
+		const extra = this.props.navigation;
+		const itemId = extra.getParam('itemId', 'no-id');
+		const otherParam = extra.getParam('otherParam', 'default value'); 
 
 		return (
 			<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
@@ -43,6 +44,11 @@ export default class LockerSelection extends Component {
 				title="Go Home" 
 				onPress={() =>
 					this.props.navigation.navigate('Home')
+				} />
+				<Button
+				title="Go Back" 
+				onPress={() =>
+					this.props.navigation.goBack()
 				} />
 			</ImageBackground>
 		)
