@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+	BackHandler,
 	Button,
 	ImageBackground,
 	Text,
@@ -14,15 +15,24 @@ export default class LockerSelection extends Component {
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
+		BackHandler.addEventListener('hardwareBackPress', this.hadleBackButton);
+	}
+
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.hadleBackButton);
+	}
+
+	hadleBackButton() {
+		return true;
 	}
 
 	render() {
 
 		return (
-			<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+			<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
 				<Text>Select Locker</Text>
 				<Button
-				title="Go Home" 
+				title="Go Samples" 
 				onPress={() =>
 					this.props.navigation.navigate('Samples')
 				} />
