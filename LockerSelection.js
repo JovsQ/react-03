@@ -28,9 +28,12 @@ export default class LockerSelection extends Component {
 
 	render() {
 
+		const itemId = this.props.navigation.getParam('itemId', 'no-id');
+		const otherParam = this	.props.navigation.getParam('otherParam', 'default value'); 
+
 		return (
 			<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-				<Text>Select Locker</Text>
+				<Text>{otherParam}</Text>
 				<Button
 				title="Go Samples" 
 				onPress={() =>

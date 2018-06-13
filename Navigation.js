@@ -16,11 +16,23 @@ import LockerSelection from './LockerSelection'
 import appBG from './images/app_bg.png'
 
 class HomeScreen extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			text: ''
+		}
+	}
+
 	componentWillMount() {
 		YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 	}
 	componentDidMount() {
 		Orientation.lockToLandscape();
+	}
+
+	onChanged(event) {
+		this.setState({text: event.target.value});
 	}
 
 	render() {
@@ -30,13 +42,24 @@ class HomeScreen extends Component {
 					<Text>Enter Your Mobile Number</Text>
 				</View>
 				
-				<PhoneInput />
+				<View style={{alignItems: 'center'}}>
+					<Text>{this.state.text}</Text>
+					<View style={{width: '70%'}}>
+						<TextInput
+						maxLength={10}
+						onChangeText={(text) => this.setState({text})}
+						value={this.state.text}	/>
+					</View>
+				</View>
 				<View style={{alignItems: 'center'}}>
 					<View style={{width: '30%'}}>
 						<Button
 						title="Enter"
 						onPress={() =>
-							this.props.navigation.navigate('SelectLocker')
+							this.props.navigation.navigate('SelectLocker', {
+								itemId: 86,
+								otherParam: this.state.text,
+							})
 						}/>
 					</View>
 				</View>
