@@ -73,7 +73,7 @@ export default class LockerSelection extends Component {
 	          		<View style={lockerStyles.headerButtonRight}></View>
 	          	</View>
 	          	<View style={lockerStyles.mainContent}>
-	          		<TouchableOpacity style={lockerStyles.lockerButton}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment')}>
 	          			<View style={lockerStyles.lockerImageContainer}> 
 	          				<Image source={bigLocker} style={lockerStyles.bigLocker} alt="big_locker"/>
 	          			</View>
@@ -83,7 +83,7 @@ export default class LockerSelection extends Component {
 	          			</View>
 	          			
 	          		</TouchableOpacity>
-	          		<TouchableOpacity style={lockerStyles.lockerButton}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment')}>
 	          			<View style={lockerStyles.lockerImageContainer}>
 	          				<Text style={{flex: 1}}></Text>
 	          				<Image source={smallLocker} style={lockerStyles.smallLocker} alt="small_locker"/>
@@ -166,7 +166,7 @@ const lockerStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 20,
 		textAlign: 'center',
-		color: 'lightblue'
+		color: '#1589FF'
 	},
 	bigLocker: {
 		flex: 1, 

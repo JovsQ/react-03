@@ -15,6 +15,7 @@ import Orientation from 'react-native-orientation';
 import SampleScreen from './App'
 import LockerSelection from './LockerSelection'
 import AsyncStorageHelper from './AsyncStorageHelper'
+import PaymentScreen from './components/PaymentScreen'
 
 import appBG from './images/app_bg.png'
 
@@ -66,9 +67,9 @@ class HomeScreen extends Component {
 	            <View style={{width: '30%'}}>
 	              <Button
 	              title="Enter"
-	              style={{fontSize: 18}}
+	              style={{fontSize: 18, backgroundColor: '#1589FF'}}
 	              onPress={() =>
-	                this.props.navigation.navigate('SelectLocker', {
+	                this.props.navigation.navigate('Payment', {
 	                  itemId: 86,
 	                  otherParam: this.state.text,
 	                })
@@ -148,6 +149,12 @@ export default createStackNavigator({
 	},
 	SampleStorage: {
 		screen: AsyncStorageHelper,
+		navigationOptions: {
+			header: null
+		}
+	},
+	Payment: {
+		screen: PaymentScreen,
 		navigationOptions: {
 			header: null
 		}
