@@ -167,7 +167,7 @@ const lockerStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 20,
 		textAlign: 'center',
-		color: '#1589FF'
+		color: '#519FE2'
 	},
 	bigLocker: {
 		flex: 1, 

@@ -16,6 +16,7 @@ import SampleScreen from './App'
 import LockerSelection from './LockerSelection'
 import AsyncStorageHelper from './AsyncStorageHelper'
 import PaymentScreen from './components/PaymentScreen'
+import OpenLockerScreen from './components/OpenLockerScreen'
 
 import appBG from './images/app_bg.png'
 
@@ -67,7 +68,7 @@ class HomeScreen extends Component {
 	            <View style={{width: '30%'}}>
 	              <Button
 	              title="Enter"
-	              style={{fontSize: 18, backgroundColor: '#1589FF'}}
+	              style={{fontSize: 18, backgroundColor: '#519FE2'}}
 	              onPress={() =>
 	                this.props.navigation.navigate('SelectLocker', {
 	                  itemId: 86,
@@ -155,6 +156,12 @@ export default createStackNavigator({
 	},
 	Payment: {
 		screen: PaymentScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	OpenLocker: {
+		screen: OpenLockerScreen,
 		navigationOptions: {
 			header: null
 		}

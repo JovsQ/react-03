@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
-import { 
-	AsyncStorage,
+import {
 	Button,
 	Image,
 	ImageBackground,
 	StyleSheet,
 	Text,
-	TextInput,
 	View
 	} from 'react-native';
 
@@ -40,19 +38,19 @@ export default class PaymentScreen extends Component {
           				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
           				<Text style={paymentStyles.amount}>P0.00</Text>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
           				</View>
 					</View>
 				</View>
@@ -69,7 +67,6 @@ const paymentStyles = StyleSheet.create({
 	    width: '100%',
 	    flexDirection: 'row',
 	    alignItems: 'stretch',
-	    backgroundColor: '#F5FCFF',
 	    justifyContent: 'space-between',
 	    alignItems: 'center'
 	},
@@ -89,7 +86,7 @@ const paymentStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 24,
 		textAlign: 'center',
-		color: '#1589FF'
+		color: '#519FE2'
 	},
 	temporaryButton: {
 		paddingLeft: 20,
