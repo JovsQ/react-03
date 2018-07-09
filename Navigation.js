@@ -69,7 +69,7 @@ class HomeScreen extends Component {
 	              title="Enter"
 	              style={{fontSize: 18, backgroundColor: '#1589FF'}}
 	              onPress={() =>
-	                this.props.navigation.navigate('Payment', {
+	                this.props.navigation.navigate('SelectLocker', {
 	                  itemId: 86,
 	                  otherParam: this.state.text,
 	                })

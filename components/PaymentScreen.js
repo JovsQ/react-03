@@ -27,7 +27,7 @@ export default class PaymentScreen extends Component {
 
 		return (
 			<ImageBackground source={appBG} style={paymentStyles.container} alt='bg'>
-				<View style={{flex: 1, backgroundColor: 'white', width: '100%', borderRadius: 10, justifyContent: 'center', padding: 30}}>
+				<View style={{flex: 1, backgroundColor: 'white', width: '100%', borderRadius: 10, justifyContent: 'center', padding: 30, elevation: 2}}>
           			<Image source={insertCash} style={paymentStyles.paymentImage} alt="insert_cash"/>
 					<View style={{flex: 5, justifyContent: 'center'}}>
 						<Text style={paymentStyles.amount}>P600.00</Text>

@@ -146,7 +146,8 @@ const lockerStyles = StyleSheet.create({
 		backgroundColor: 'white',
 		width: '40%',
 		justifyContent: 'center',
-		borderRadius: 10
+		borderRadius: 10,
+		elevation: 2
 	},
 	lockerImageContainer: {
 		flex: 5, 
