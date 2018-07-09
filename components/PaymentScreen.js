@@ -27,7 +27,7 @@ export default class PaymentScreen extends Component {
 
 		return (
 			<ImageBackground source={appBG} style={paymentStyles.container} alt='bg'>
-				<View style={{flex: 1, backgroundColor: 'white', width: '100%', borderRadius: 10, justifyContent: 'center', padding: 30, elevation: 2}}>
+				<View style={{width: '60%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', padding: 30, elevation: 2}}>
           			<Image source={insertCash} style={paymentStyles.paymentImage} alt="insert_cash"/>
 					<View style={{flex: 5, justifyContent: 'center'}}>
 						<Text style={paymentStyles.amount}>P600.00</Text>
@@ -35,7 +35,27 @@ export default class PaymentScreen extends Component {
 					</View>
 				</View>
 				
-
+				<View style={{width: '35%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', elevation: 2}}>
+					<View style={{flex: 5, width: '100%' , justifyContent: 'center'}}>
+          				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
+          				<Text style={paymentStyles.amount}>P0.00</Text>
+          				<View style={paymentStyles.temporaryButton}>
+          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          				</View>
+          				<View style={paymentStyles.temporaryButton}>
+          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          				</View>
+          				<View style={paymentStyles.temporaryButton}>
+          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          				</View>
+          				<View style={paymentStyles.temporaryButton}>
+          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          				</View>
+          				<View style={paymentStyles.temporaryButton}>
+          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#1589FF'}} onPress={() => navigation.navigate('Home')}/>	
+          				</View>
+					</View>
+				</View>
 				
 			</ImageBackground>
 		);
@@ -46,9 +66,11 @@ const paymentStyles = StyleSheet.create({
 	container: {
 	    padding: 30,
 	    flex: 1,
+	    width: '100%',
+	    flexDirection: 'row',
 	    alignItems: 'stretch',
 	    backgroundColor: '#F5FCFF',
-	    justifyContent: 'center',
+	    justifyContent: 'space-between',
 	    alignItems: 'center'
 	},
 	paymentImage: {
@@ -68,6 +90,14 @@ const paymentStyles = StyleSheet.create({
 		fontSize: 24,
 		textAlign: 'center',
 		color: '#1589FF'
+	},
+	temporaryButton: {
+		paddingLeft: 20,
+		paddingRight: 20,
+		paddingTop: 1,
+		paddingBottom: 1,
+		width:'100%', 
+		justifyContent: 'center'
 	}
 
 });
