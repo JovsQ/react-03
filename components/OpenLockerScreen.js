@@ -11,6 +11,8 @@ import {
 
 
 import appBG from '../images/app_bg.png';
+import check from '../images/check_circle.png';
+import phone from '../images/phone.png';
 
 export default class OpenLockerScreen extends Component {
 	componentDidMount() {
@@ -24,6 +26,7 @@ export default class OpenLockerScreen extends Component {
 			<ImageBackground source={appBG} style={openLockerStyles.container} alt='bg'>
 				<View style={openLockerStyles.card}>
 					<View style={openLockerStyles.leftContainer}>
+						<Image source={check} alt='check_circle' style={openLockerStyles.check}/>
 						<Text style={openLockerStyles.leftText}>Locker</Text>
 						<Text style={openLockerStyles.leftText}>Successfully</Text>
 						<Text style={openLockerStyles.leftTextBold}>Opened!</Text>
@@ -32,6 +35,15 @@ export default class OpenLockerScreen extends Component {
 						<Text></Text>
 					</View>
 					<View style={openLockerStyles.rightContainer}>
+						<View style={openLockerStyles.rightLabel}>
+							<Text style={openLockerStyles.rightLabelText}>Please proceed</Text>
+							<Text style={openLockerStyles.rightLabelText}>to locker <Text style={openLockerStyles.highlightBlue}>No. 12</Text></Text>
+						</View>
+						<View style={openLockerStyles.rightDetails}>
+							<Text style={openLockerStyles.rightLabelText}>For <Text style={openLockerStyles.highlightBlack}>Drop Off</Text></Text>
+							<Text style={openLockerStyles.rightLabelText}>Big Locker - <Text style={openLockerStyles.highlightBlue}>P600.00</Text></Text>
+							<Text style={openLockerStyles.rightLabelText}><Image source={phone} alt='phone' style={openLockerStyles.phone}/> 09171234567</Text>
+						</View>
 						<View style={openLockerStyles.exitButton}>
 							<Button title="Exit" style={{fontSize: 18}} onPress={() => navigation.navigate('Home')}/>	
 						</View>
@@ -65,6 +77,17 @@ const openLockerStyles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
+	check: {
+		aspectRatio: 1,
+		resizeMode: 'contain',
+		alignSelf: 'center',
+		width: 30,
+		height: 30
+	},
+	phone: {
+		width: 30,
+		height: 30
+	},
 	leftText: {
 		fontWeight: '400',
 		fontSize: 20,
@@ -84,15 +107,38 @@ const openLockerStyles = StyleSheet.create({
 		borderRightWidth: 1
 	},
 	rightContainer: {
-		paddingLeft: 20,
-		paddingRight: 20,
+		padding: 20,
 		width: '59%',
 		justifyContent: 'center'
+	},
+	rightLabel: {
+		flex: 2,
+		width: '70%',
+		alignSelf: 'center'
+	},
+	rightLabelText: {
+		fontWeight: '400',
+		fontSize: 18,
+		textAlign: 'left',
+		alignSelf: 'stretch'
+	},
+	rightDetails: {
+		flex: 3,
+		width: '70%',
+		alignSelf: 'center'
 	},
 	exitButton: {
 		width: '70%',
 		alignSelf: 'center', 
 		backgroundColor: '#519FE2', 
 		borderRadius: 5
+	},
+	highlightBlue: {
+		fontWeight: '700',
+		color: '#519FE2'
+	},
+	highlightBlack: {
+		fontWeight: '700',
+		color: 'black'
 	}
 })
