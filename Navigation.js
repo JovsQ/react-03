@@ -50,16 +50,10 @@ class HomeScreen extends Component {
 	          </View>
 	          
 	          <View style={{alignItems: 'center'}}>
-	            <View style={{width: '50%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 30, paddingRight: 30}}>
+	            <View style={{width: '50%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 30, paddingRight: 30, borderRadius: 10, elevation: 2}}>
 
-	              <Text style={{fontSize: 28, color: 'lightgray', width: '22%', textAlign: 'center'}}>+63</Text>
 
-	              <Text style={{fontSize: 28, color: 'black', width: '22%', textAlign: 'center'}}>995</Text>
-
-	              <Text style={{fontSize: 28, color: 'black', width: '22%', textAlign: 'center'}}>081</Text>
-
-	              <Text style={{fontSize: 28, color: 'black', width: '30%', textAlign: 'center'}}>5097</Text>
-
+	              <TextInput style={{fontSize: 28, textAlign: 'center', width: '100%'}} maxLength={11} underlineColorAndroid='rgba(0,0,0,0)' keyboardType='numeric'/>
 	              
 	            </View>
 	          </View>
