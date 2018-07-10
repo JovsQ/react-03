@@ -29,15 +29,27 @@ class HomeScreen extends Component {
 		}
 	}
 
-	componentWillMount() {
-		YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
-	}
 	componentDidMount() {
 		Orientation.lockToLandscape();
 	}
 
 	onChanged(event) {
 		this.setState({text: event.target.value});
+	}
+
+	validateNumber() {
+		if (this.state.text === '09123456789') {	
+			this.props.navigation.navigate('SelectLocker', {
+              	phoneNumber: this.state.text,
+            })
+            this.setState({text: ''});
+            this.textInput.clear();
+		} else if (this.state.text.length === 11) {
+			this.textInput.clear();
+		} else {
+			
+		}
+		
 	}
 
 	render() {
@@ -52,8 +64,7 @@ class HomeScreen extends Component {
 	          <View style={{alignItems: 'center'}}>
 	            <View style={{width: '50%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 30, paddingRight: 30, borderRadius: 10, elevation: 2}}>
 
-
-	              <TextInput style={{fontSize: 28, textAlign: 'center', width: '100%'}} maxLength={11} underlineColorAndroid='rgba(0,0,0,0)' keyboardType='numeric'/>
+	              <TextInput ref={input => { this.textInput = input }} style={{fontSize: 28, textAlign: 'center', width: '100%'}} maxLength={11} underlineColorAndroid='rgba(0,0,0,0)' keyboardType='numeric' onChangeText={(text) => this.setState({text})}/>
 	              
 	            </View>
 	          </View>
@@ -64,10 +75,7 @@ class HomeScreen extends Component {
 	              title="Enter"
 	              style={{fontSize: 18, backgroundColor: '#519FE2'}}
 	              onPress={() =>
-	                this.props.navigation.navigate('SelectLocker', {
-	                  itemId: 86,
-	                  otherParam: this.state.text,
-	                })
+	                this.validateNumber()
 	              }/>
 	            </View>
 	          </View>

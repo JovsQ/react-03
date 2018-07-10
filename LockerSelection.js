@@ -38,7 +38,7 @@ export default class LockerSelection extends Component {
 
 		const { navigation } = this.props;
 		// const itemId = navigation.getParam('itemId', 'no-id');
-		// const otherParam = navigation.getParam('otherParam', 'default value'); 
+		// const otherParam = navigation.getParam('phoneNumber', 'default value'); 
 
 		// return (
 		// 	<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
