@@ -17,6 +17,7 @@ import LockerSelection from './LockerSelection'
 import AsyncStorageHelper from './AsyncStorageHelper'
 import PaymentScreen from './components/PaymentScreen'
 import OpenLockerScreen from './components/OpenLockerScreen'
+import EnterPinScreen from './components/EnterPinScreen'
 
 import appBG from './images/app_bg.png'
 
@@ -39,15 +40,19 @@ class HomeScreen extends Component {
 
 	validateNumber() {
 		if (this.state.text === '09123456789') {	
-			this.props.navigation.navigate('SelectLocker', {
+			this.props.navigation.navigate('EnterPin', {
               	phoneNumber: this.state.text,
             })
             this.setState({text: ''});
             this.textInput.clear();
 		} else if (this.state.text.length === 11) {
-			this.textInput.clear();
+			this.props.navigation.navigate('SelectLocker', {
+              	phoneNumber: this.state.text,
+            })
+            this.setState({text: ''});
+            this.textInput.clear();
 		} else {
-			
+
 		}
 		
 	}
@@ -164,6 +169,12 @@ export default createStackNavigator({
 	},
 	OpenLocker: {
 		screen: OpenLockerScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	EnterPin: {
+		screen: EnterPinScreen,
 		navigationOptions: {
 			header: null
 		}

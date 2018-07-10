@@ -22,6 +22,10 @@ export default class OpenLockerScreen extends Component {
 	render() {
 		const { navigation } = this.props;
 
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const size = this.props.navigation.getParam('size', 'no size');
+		const price = this.props.navigation.getParam('price', '0'); 
+
 		return (
 			<ImageBackground source={appBG} style={openLockerStyles.container} alt='bg'>
 				<View style={openLockerStyles.card}>
@@ -41,8 +45,8 @@ export default class OpenLockerScreen extends Component {
 						</View>
 						<View style={openLockerStyles.rightDetails}>
 							<Text style={openLockerStyles.rightLabelText}>For <Text style={openLockerStyles.highlightBlack}>Drop Off</Text></Text>
-							<Text style={openLockerStyles.rightLabelText}>Big Locker - <Text style={openLockerStyles.highlightBlue}>P600.00</Text></Text>
-							<Text style={openLockerStyles.rightLabelText}><Image source={phone} alt='phone' style={openLockerStyles.phone}/> 09171234567</Text>
+							<Text style={openLockerStyles.rightLabelText}>{size} - <Text style={openLockerStyles.highlightBlue}>P{price}.00</Text></Text>
+							<Text style={openLockerStyles.rightLabelText}><Image source={phone} alt='phone' style={openLockerStyles.phone}/> {phoneNumber}</Text>
 						</View>
 						<View style={openLockerStyles.exitButton}>
 							<Button title="Exit" style={{fontSize: 18}} onPress={() => navigation.navigate('Home')}/>	

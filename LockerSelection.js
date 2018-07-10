@@ -37,29 +37,7 @@ export default class LockerSelection extends Component {
 	render() {
 
 		const { navigation } = this.props;
-		// const itemId = navigation.getParam('itemId', 'no-id');
-		// const otherParam = navigation.getParam('phoneNumber', 'default value'); 
-
-		// return (
-		// 	<ImageBackground source={appBG} alt="bg" style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-		// 		<Text>{otherParam}</Text>
-		// 		<Button
-		// 		title="Go Samples" 
-		// 		onPress={() =>
-		// 			navigation.navigate('SampleStorage')
-		// 		} />
-		// 		<Button
-		// 		title="Go Home" 
-		// 		onPress={() =>
-		// 			navigation.navigate('Home')
-		// 		} />
-		// 		<Button
-		// 		title="Go Back" 
-		// 		onPress={() =>
-		// 			navigation.goBack()
-		// 		} />
-		// 	</ImageBackground>
-		// )
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
 
 		return (
 			<ImageBackground source={appBG} alt="bg" style={lockerStyles.container}>
@@ -73,7 +51,11 @@ export default class LockerSelection extends Component {
 	          		<View style={lockerStyles.headerButtonRight}></View>
 	          	</View>
 	          	<View style={lockerStyles.mainContent}>
-	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment')}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment', {
+	            		phoneNumber: phoneNumber,
+	            		size: 'Big Locker',
+	            		price: 600
+	            	})}>
 	          			<View style={lockerStyles.lockerImageContainer}> 
 	          				<Image source={bigLocker} style={lockerStyles.bigLocker} alt="big_locker"/>
 	          			</View>
@@ -83,7 +65,10 @@ export default class LockerSelection extends Component {
 	          			</View>
 	          			
 	          		</TouchableOpacity>
-	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment')}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment', {
+	          		phoneNumber: phoneNumber,
+	          		size: 'Small Locker',
+	          		price: 400})}>
 	          			<View style={lockerStyles.lockerImageContainer}>
 	          				<Text style={{flex: 1}}></Text>
 	          				<Image source={smallLocker} style={lockerStyles.smallLocker} alt="small_locker"/>

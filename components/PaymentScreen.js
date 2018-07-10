@@ -21,14 +21,18 @@ export default class PaymentScreen extends Component {
 	render() {
 		const { navigation } = this.props;
 		const itemId = navigation.getParam('itemId', 'no-id');
-		const otherParam = navigation.getParam('otherParam', 'default value'); 
+		const otherParam = navigation.getParam('otherParam', 'default value');
+
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const size = this.props.navigation.getParam('size', 'no size');
+		const price = this.props.navigation.getParam('price', '0'); 
 
 		return (
 			<ImageBackground source={appBG} style={paymentStyles.container} alt='bg'>
 				<View style={{width: '60%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', padding: 30, elevation: 2}}>
           			<Image source={insertCash} style={paymentStyles.paymentImage} alt="insert_cash"/>
 					<View style={{flex: 5, justifyContent: 'center'}}>
-						<Text style={paymentStyles.amount}>P600.00</Text>
+						<Text style={paymentStyles.amount}>P{price}</Text>
           				<Text style={paymentStyles.amountLabel}>Please Insert Payment</Text>
 					</View>
 				</View>
@@ -38,19 +42,29 @@ export default class PaymentScreen extends Component {
           				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
           				<Text style={paymentStyles.amount}>P0.00</Text>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
+          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
+          						phoneNumber: phoneNumber, size: size, price: price
+          					})}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
+          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
+          						phoneNumber: phoneNumber, size: size, price: price
+          					})}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
+          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
+          						phoneNumber: phoneNumber, size: size, price: price
+          					})}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
+          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
+          						phoneNumber: phoneNumber, size: size, price: price
+          					})}/>	
           				</View>
           				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker')}/>	
+          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
+          						phoneNumber: phoneNumber, size: size, price: price
+          					})}/>	
           				</View>
 					</View>
 				</View>
