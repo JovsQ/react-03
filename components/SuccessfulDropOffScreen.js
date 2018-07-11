@@ -6,6 +6,7 @@ import {
 	ImageBackground,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View
 } from 'react-native';
 
@@ -40,8 +41,10 @@ export default class SuccessfulDropOffScreen extends Component {
 							<Text style={dropOffStyles.rightLabelText}>has been assigned</Text>
 							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
 						</View>
-						<View style={dropOffStyles.exitButton}>
-							<Button title="Go back to Locker List" style={{fontSize: 18}} onPress={() => navigation.navigate('DropOffLocker')}/>	
+						<View style={dropOffStyles.exitButtonContainer}>
+							<TouchableOpacity style={dropOffStyles.exitButton} onPress={() => navigation.navigate('PickupLocker')}>
+								<Text style={dropOffStyles.exitButtonLabel}>Go back to Locker List</Text>
+							</TouchableOpacity>
 						</View>
 	  				</View>
 				</View>
@@ -124,11 +127,25 @@ const dropOffStyles = StyleSheet.create({
 		width: '70%',
 		alignSelf: 'center'
 	},
-	exitButton: {
+	exitButtonContainer: {
 		flex: 1,
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	exitButton: {
 		width: '70%',
-		alignSelf: 'center',
+		backgroundColor: '#519FE2',
+		height: 40,
+		borderRadius: 5, 
+		elevation: 2,
+		alignItems: 'center',
 		justifyContent:'center'
+	},
+	exitButtonLabel: {
+		fontSize: 18, 
+		color: 'white',
+		textAlign: 'center'
 	},
 	highlightBlue: {
 		fontWeight: '700',
