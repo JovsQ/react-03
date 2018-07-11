@@ -29,7 +29,7 @@ export default class ServiceSelectScreen extends Component {
             		<Text style={servicesStyles.headerText}>Select Type of Service</Text>
 	          	</View>
 	          	<View style={servicesStyles.mainContent}>
-	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('Home')}>
+	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('PickupLocker')}>
 	          			<View style={servicesStyles.serviceImageContainer}> 
 	          				<Image source={washingMachine} style={servicesStyles.serviceImage} alt="washing_machine"/>
 	          			</View>
@@ -49,7 +49,7 @@ export default class ServiceSelectScreen extends Component {
 	          			</View>
 	          			
 	          		</TouchableOpacity>
-	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('Home')}>
+	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('PickupLocker')}>
 	          			<View style={servicesStyles.serviceImageContainer}> 
 	          				<Image source={cleanBag} style={servicesStyles.serviceImage} alt="clean_bag"/>
 	          			</View>

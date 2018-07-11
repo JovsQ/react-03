@@ -112,6 +112,7 @@ const lockerStyles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	backButton: {
+		resizeMode: 'contain',
 		width: 25,
 		height: 25
 	},

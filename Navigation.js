@@ -12,6 +12,7 @@ import {
 import { createStackNavigator, StackNavigator } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 
+//screens
 import SampleScreen from './App';
 import LockerSelection from './LockerSelection';
 import AsyncStorageHelper from './AsyncStorageHelper';
@@ -20,7 +21,9 @@ import OpenLockerScreen from './components/OpenLockerScreen';
 import EnterPinScreen from './components/EnterPinScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import ServiceSelectScreen from './components/ServiceSelectScreen.js';
+import PickupLockerScreen from './components/PickupLockerScreen.js';
 
+//assets
 import appBG from './images/app_bg.png'
 
 class HomeScreen extends Component {
@@ -54,7 +57,9 @@ class HomeScreen extends Component {
             this.setState({text: ''});
             this.textInput.clear();
 		} else {
-
+			// this.props.navigation.navigate('PickupLocker');
+			// this.setState({text: ''});
+			// this.textInput.clear();
 		}
 		
 	}
@@ -189,6 +194,12 @@ export default createStackNavigator({
 	},
 	ServiceSelect: {
 		screen: ServiceSelectScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	PickupLocker: {
+		screen: PickupLockerScreen,
 		navigationOptions: {
 			header: null
 		}

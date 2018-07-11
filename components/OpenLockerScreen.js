@@ -74,7 +74,8 @@ const openLockerStyles = StyleSheet.create({
 		borderRadius: 10,
 		justifyContent: 'center',
 		paddingTop: 30,
-		paddingBottom: 30
+		paddingBottom: 30,
+		elevation: 2
 	},
 	leftContainer: {
 		width: '40%',
