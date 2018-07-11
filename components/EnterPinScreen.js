@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
+	BackHandler,
 	Button,
 	Image,
 	ImageBackground,
@@ -30,8 +31,12 @@ export default class EnterPinScreen extends Component {
 		Orientation.lockToLandscape();
 	}
 
+	componentWillUnmount() {
+
+	}
+
 	validatePin() {
-		this.props.navigation.navigate('Home');
+		this.props.navigation.navigate('ThankYou');
 	}
 
 	render() {

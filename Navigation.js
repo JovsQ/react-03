@@ -12,12 +12,13 @@ import {
 import { createStackNavigator, StackNavigator } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 
-import SampleScreen from './App'
-import LockerSelection from './LockerSelection'
-import AsyncStorageHelper from './AsyncStorageHelper'
-import PaymentScreen from './components/PaymentScreen'
-import OpenLockerScreen from './components/OpenLockerScreen'
-import EnterPinScreen from './components/EnterPinScreen'
+import SampleScreen from './App';
+import LockerSelection from './LockerSelection';
+import AsyncStorageHelper from './AsyncStorageHelper';
+import PaymentScreen from './components/PaymentScreen';
+import OpenLockerScreen from './components/OpenLockerScreen';
+import EnterPinScreen from './components/EnterPinScreen';
+import ThankYouScreen from './components/ThankYouScreen';
 
 import appBG from './images/app_bg.png'
 
@@ -175,6 +176,12 @@ export default createStackNavigator({
 	},
 	EnterPin: {
 		screen: EnterPinScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	ThankYou: {
+		screen: ThankYouScreen,
 		navigationOptions: {
 			header: null
 		}
