@@ -22,6 +22,7 @@ import EnterPinScreen from './components/EnterPinScreen';
 import ThankYouScreen from './components/ThankYouScreen';
 import ServiceSelectScreen from './components/ServiceSelectScreen.js';
 import PickupLockerScreen from './components/PickupLockerScreen.js';
+import SuccessfulPickupScreen from './components/SuccessfulPickupScreen.js';
 
 //assets
 import appBG from './images/app_bg.png'
@@ -200,6 +201,12 @@ export default createStackNavigator({
 	},
 	PickupLocker: {
 		screen: PickupLockerScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	SuccessfulPickup: {
+		screen: SuccessfulPickupScreen,
 		navigationOptions: {
 			header: null
 		}
