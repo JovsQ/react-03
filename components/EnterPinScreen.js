@@ -61,7 +61,7 @@ export default class EnterPinScreen extends Component {
 		          			<Text style={pinStyles.input}>------</Text>
 		          			<View style={pinStyles.numpad}>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => navigation.navigate('ServiceSelect')}>
 		          						<Image source={oneButton} alt="one_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
 		          					<TouchableOpacity style={pinStyles.numpadButton}>

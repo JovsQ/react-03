@@ -19,6 +19,7 @@ import PaymentScreen from './components/PaymentScreen';
 import OpenLockerScreen from './components/OpenLockerScreen';
 import EnterPinScreen from './components/EnterPinScreen';
 import ThankYouScreen from './components/ThankYouScreen';
+import ServiceSelectScreen from './components/ServiceSelectScreen.js';
 
 import appBG from './images/app_bg.png'
 
@@ -182,6 +183,12 @@ export default createStackNavigator({
 	},
 	ThankYou: {
 		screen: ThankYouScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	ServiceSelect: {
+		screen: ServiceSelectScreen,
 		navigationOptions: {
 			header: null
 		}
