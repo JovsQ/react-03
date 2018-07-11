@@ -115,7 +115,7 @@ const pickupStyles = StyleSheet.create({
 	rightLabelText: {
 		fontWeight: '400',
 		fontSize: 18,
-		textAlign: 'left',
+		textAlign: 'center',
 		alignSelf: 'stretch'
 	},
 	rightDetails: {

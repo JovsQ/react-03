@@ -23,6 +23,7 @@ import ThankYouScreen from './components/ThankYouScreen';
 import ServiceSelectScreen from './components/ServiceSelectScreen.js';
 import PickupLockerScreen from './components/PickupLockerScreen.js';
 import SuccessfulPickupScreen from './components/SuccessfulPickupScreen.js';
+import DropOffLockerScreen from './components/DropOffLockerScreen.js';
 
 //assets
 import appBG from './images/app_bg.png'
@@ -207,6 +208,12 @@ export default createStackNavigator({
 	},
 	SuccessfulPickup: {
 		screen: SuccessfulPickupScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	DropOffLocker: {
+		screen: DropOffLockerScreen,
 		navigationOptions: {
 			header: null
 		}

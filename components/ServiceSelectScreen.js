@@ -33,9 +33,10 @@ export default class ServiceSelectScreen extends Component {
 	          			<View style={servicesStyles.serviceImageContainer}> 
 	          				<Image source={washingMachine} style={servicesStyles.serviceImage} alt="washing_machine"/>
 	          			</View>
+
 	          			<View style={servicesStyles.serviceDetailsContainer}>
 	          				<View style={servicesStyles.label}>
-	          					<Text style={servicesStyles.labelBold}>Drop Off</Text>
+	          					<Text style={servicesStyles.labelBold}>Pick Up</Text>
 	          					<Text style={servicesStyles.labelText}>Laundry</Text>
 	          				</View>
 	          				<View style={servicesStyles.line}>
@@ -45,17 +46,18 @@ export default class ServiceSelectScreen extends Component {
 	          					<Text style={servicesStyles.detailText}>Let us take care of your dirty laundry</Text>
 	          					<Text style={servicesStyles.detailText}>and expect a fast and thorough</Text>
 	          					<Text style={servicesStyles.detailText}>cleaning service!</Text>
-	          				</View>	          				
-	          			</View>
+	          				</View>       				
+	          			</View>	          			
 	          			
 	          		</TouchableOpacity>
-	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('PickupLocker')}>
+	          		<TouchableOpacity style={servicesStyles.serviceButton} onPress={() => navigation.navigate('DropOffLocker')}>
 	          			<View style={servicesStyles.serviceImageContainer}> 
 	          				<Image source={cleanBag} style={servicesStyles.serviceImage} alt="clean_bag"/>
 	          			</View>
+
 	          			<View style={servicesStyles.serviceDetailsContainer}>
 	          				<View style={servicesStyles.label}>
-	          					<Text style={servicesStyles.labelBold}>Pick Up</Text>
+	          					<Text style={servicesStyles.labelBold}>Drop Off</Text>
 	          					<Text style={servicesStyles.labelText}>Laundry</Text>
 	          				</View>
 	          				<View style={servicesStyles.line}>
@@ -67,6 +69,7 @@ export default class ServiceSelectScreen extends Component {
 	          					<Text style={servicesStyles.detailText}>to your locker</Text>
 	          				</View>	          				
 	          			</View>
+
 	          		</TouchableOpacity>
 	            	
 	          	</View>
