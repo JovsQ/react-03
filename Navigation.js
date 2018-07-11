@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {
 	Alert,
+	AsyncStorage,
 	Button,
 	Image,
 	ImageBackground, 
 	View,
 	Text,
 	TextInput,
+	TouchableOpacity,
 	YellowBox 
 } from 'react-native';
 import { createStackNavigator, StackNavigator } from 'react-navigation';
@@ -40,6 +42,17 @@ class HomeScreen extends Component {
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
+		// AsyncStorage.getItem('phoneNumber').then((value) => this.textInput = value);
+		// Alert.alert(this.getStorageValue('phoneNumber'));
+		
+		// this.getStorageValue('smartLockAccounts');
+	}
+
+	async getStorageValue(key) {
+		var value = await AsyncStorage.getItem(key);
+		if (value) {
+			this.setState({text: value});	
+		}		
 	}
 
 	onChanged(event) {
@@ -51,15 +64,27 @@ class HomeScreen extends Component {
 			this.props.navigation.navigate('EnterPin', {
               	phoneNumber: this.state.text,
             })
+   //          if (this.state.text) {
+			// 	AsyncStorage.setItem('smartLockAccounts', this.state.text);	
+			// }
             this.setState({text: ''});
             this.textInput.clear();
 		} else if (this.state.text.length === 11) {
 			this.props.navigation.navigate('SelectLocker', {
               	phoneNumber: this.state.text,
             })
+   //          if (this.state.text) {
+			// 	AsyncStorage.setItem('smartLockAccounts', this.state.text);	
+			// }
             this.setState({text: ''});
             this.textInput.clear();
 		} else {
+			// Alert.alert(this.state.text);
+			
+			// if (this.state.text) {
+			// 	AsyncStorage.setItem('phoneNumber', this.state.text);
+			// 	Alert.alert(this.state.text);	
+			// }			
 			// this.props.navigation.navigate('PickupLocker');
 			// this.setState({text: ''});
 			// this.textInput.clear();
@@ -71,7 +96,7 @@ class HomeScreen extends Component {
 	    return (
 	      <ImageBackground source={appBG} alt="bg" style={{flex: 1, justifyContent: 'center', paddingBottom: 48}}>
 
-	        <View style={{height: '50%', justifyContent: 'space-between'}}>
+	        <View style={{height: '60%', justifyContent: 'space-between'}}>
 	          <View style={{alignItems: 'center'}}>
 	            <Text style={{fontSize: 18}}>Enter Your Mobile Number</Text>
 	          </View>
@@ -85,14 +110,10 @@ class HomeScreen extends Component {
 	          </View>
 
 	          <View style={{alignItems: 'center'}}>
-	            <View style={{width: '30%'}}>
-	              <Button
-	              title="Enter"
-	              style={{fontSize: 18, backgroundColor: '#519FE2'}}
-	              onPress={() =>
-	                this.validateNumber()
-	              }/>
-	            </View>
+	            <TouchableOpacity style={{width: '30%', backgroundColor: '#519FE2', height: 40, borderRadius: 5, justifyContent: 'center', alignItems: 'center', elevation: 2}}
+	            onPress={() => this.validateNumber()}>
+	            	<Text style={{fontSize: 18, color: 'white'}}>Enter</Text>
+	            </TouchableOpacity>
 	          </View>
 
 	        </View>
