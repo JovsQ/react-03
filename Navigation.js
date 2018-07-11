@@ -24,6 +24,7 @@ import ServiceSelectScreen from './components/ServiceSelectScreen.js';
 import PickupLockerScreen from './components/PickupLockerScreen.js';
 import SuccessfulPickupScreen from './components/SuccessfulPickupScreen.js';
 import DropOffLockerScreen from './components/DropOffLockerScreen.js';
+import SuccessfulDropOffScreen from './components/SuccessfulDropOffScreen.js';
 
 //assets
 import appBG from './images/app_bg.png'
@@ -214,6 +215,12 @@ export default createStackNavigator({
 	},
 	DropOffLocker: {
 		screen: DropOffLockerScreen,
+		navigationOptions: {
+			header: null
+		}
+	},
+	SuccessfulDropOff: {
+		screen: SuccessfulDropOffScreen,
 		navigationOptions: {
 			header: null
 		}

@@ -22,7 +22,8 @@ export default class DropOffLockerScreen extends Component {
 	}
 
 	itemSelected(item) {
-		Alert.alert(item);
+		// Alert.alert(item);
+		this.props.navigation.navigate('SuccessfulDropOff');
 	}
 
 	render() {

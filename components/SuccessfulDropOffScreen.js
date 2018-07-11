@@ -12,7 +12,7 @@ import {
 import appBG from '../images/app_bg.png';
 import check from '../images/check_circle.png';
 
-export default class SuccessfulPickupScreen extends Component {
+export default class SuccessfulDropOffScreen extends Component {
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
@@ -23,23 +23,24 @@ export default class SuccessfulPickupScreen extends Component {
 		const { navigation } = this.props;
 
 		return (
-			<ImageBackground source={appBG} style={pickupStyles.container} alt='bg'>
-				<View style={pickupStyles.card}>
-					<View style={pickupStyles.leftContainer}>
-						<Image source={check} alt='check_circle' style={pickupStyles.check}/>
-						<Text style={pickupStyles.leftText}>Locker</Text>
-						<Text style={pickupStyles.leftText}>Successfully</Text>
-						<Text style={pickupStyles.leftTextBold}>Opened!</Text>
+			<ImageBackground source={appBG} style={dropOffStyles.container} alt='bg'>
+				<View style={dropOffStyles.card}>
+					<View style={dropOffStyles.leftContainer}>
+						<Image source={check} alt='check_circle' style={dropOffStyles.check}/>
+						<Text style={dropOffStyles.leftText}>Locker</Text>
+						<Text style={dropOffStyles.leftText}>Successfully</Text>
+						<Text style={dropOffStyles.leftTextBold}>Opened!</Text>
 					</View>
-					<View style={pickupStyles.line}>
+					<View style={dropOffStyles.line}>
 						<Text></Text>
 					</View>
-					<View style={pickupStyles.rightContainer}>
-						<View style={pickupStyles.rightLabel}>
-							<Text style={pickupStyles.rightLabelText}>Please proceed</Text>
-							<Text style={pickupStyles.rightLabelText}>to locker <Text style={pickupStyles.highlightBlue}>No. 12</Text></Text>
+					<View style={dropOffStyles.rightContainer}>
+						<View style={dropOffStyles.rightLabel}>
+							<Text style={dropOffStyles.rightLabelText}>Locker <Text style={dropOffStyles.highlightBlue}>No. 12</Text></Text>
+							<Text style={dropOffStyles.rightLabelText}>has been assigned</Text>
+							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
 						</View>
-						<View style={pickupStyles.exitButton}>
+						<View style={dropOffStyles.exitButton}>
 							<Button title="Go back to Locker List" style={{fontSize: 18}} onPress={() => navigation.navigate('PickupLocker')}/>	
 						</View>
 	  				</View>
@@ -49,7 +50,7 @@ export default class SuccessfulPickupScreen extends Component {
 	}
 }
 
-const pickupStyles = StyleSheet.create({
+const dropOffStyles = StyleSheet.create({
 	container: {
 		padding: 30,
 		flex: 1,
