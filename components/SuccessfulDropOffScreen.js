@@ -41,7 +41,7 @@ export default class SuccessfulDropOffScreen extends Component {
 							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
 						</View>
 						<View style={dropOffStyles.exitButton}>
-							<Button title="Go back to Locker List" style={{fontSize: 18}} onPress={() => navigation.navigate('PickupLocker')}/>	
+							<Button title="Go back to Locker List" style={{fontSize: 18}} onPress={() => navigation.navigate('DropOffLocker')}/>	
 						</View>
 	  				</View>
 				</View>

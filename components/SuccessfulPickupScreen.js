@@ -6,6 +6,7 @@ import {
 	ImageBackground,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View
 } from 'react-native';
 
@@ -21,6 +22,8 @@ export default class SuccessfulPickupScreen extends Component {
 	render() {
 
 		const { navigation } = this.props;
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const lockerNo = this.props.navigation.getParam('lockerNo', '0');
 
 		return (
 			<ImageBackground source={appBG} style={pickupStyles.container} alt='bg'>
@@ -37,10 +40,12 @@ export default class SuccessfulPickupScreen extends Component {
 					<View style={pickupStyles.rightContainer}>
 						<View style={pickupStyles.rightLabel}>
 							<Text style={pickupStyles.rightLabelText}>Please proceed</Text>
-							<Text style={pickupStyles.rightLabelText}>to locker <Text style={pickupStyles.highlightBlue}>No. 12</Text></Text>
+							<Text style={pickupStyles.rightLabelText}>to locker <Text style={pickupStyles.highlightBlue}>No. {lockerNo}</Text></Text>
 						</View>
-						<View style={pickupStyles.exitButton}>
-							<Button title="Go back to Locker List" style={{fontSize: 18}} onPress={() => navigation.navigate('PickupLocker')}/>	
+						<View style={pickupStyles.exitButtonContainer}>
+							<TouchableOpacity style={pickupStyles.exitButton} onPress={() => navigation.navigate('PickupLocker')}>
+								<Text style={pickupStyles.exitButtonLabel}>Go back to Locker List</Text>
+							</TouchableOpacity>
 						</View>
 	  				</View>
 				</View>
@@ -123,11 +128,25 @@ const pickupStyles = StyleSheet.create({
 		width: '70%',
 		alignSelf: 'center'
 	},
-	exitButton: {
+	exitButtonContainer: {
 		flex: 1,
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	exitButton: {
 		width: '70%',
-		alignSelf: 'center',
+		backgroundColor: '#519FE2',
+		height: 40,
+		borderRadius: 5, 
+		elevation: 2,
+		alignItems: 'center',
 		justifyContent:'center'
+	},
+	exitButtonLabel: {
+		fontSize: 18, 
+		color: 'white',
+		textAlign: 'center'
 	},
 	highlightBlue: {
 		fontWeight: '700',

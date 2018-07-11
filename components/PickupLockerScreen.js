@@ -25,7 +25,9 @@ export default class PickupLockerScreen extends Component {
 
 	itemSelected(item, lockerNo) {
 		// Alert.alert(item + ' ' + lockerNo);
-		this.props.navigation.navigate('SuccessfulPickup');
+		this.props.navigation.navigate('SuccessfulPickup', {
+			phoneNumber: item, lockerNo: lockerNo
+		});
 	}
 
 	render() {
