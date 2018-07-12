@@ -92,6 +92,10 @@ class HomeScreen extends Component {
 		
 	}
 
+	randomNumberGenerator() {
+		Alert.alert(Math.floor(100000 + Math.random() * 900000).toString());
+	}
+
 	render() {
 	    return (
 	      <ImageBackground source={appBG} alt="bg" style={{flex: 1, justifyContent: 'center', paddingBottom: 48}}>
