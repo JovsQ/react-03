@@ -6,6 +6,7 @@ import {
 	ImageBackground,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View
 } from 'react-native';
 
@@ -48,8 +49,10 @@ export default class OpenLockerScreen extends Component {
 							<Text style={openLockerStyles.rightLabelText}>{size} - <Text style={openLockerStyles.highlightBlue}>P{price}.00</Text></Text>
 							<Text style={openLockerStyles.rightLabelText}><Image source={phone} alt='phone' style={openLockerStyles.phone}/> {phoneNumber}</Text>
 						</View>
-						<View style={openLockerStyles.exitButton}>
-							<Button title="Exit" style={{fontSize: 18}} onPress={() => navigation.navigate('Home')}/>	
+						<View style={openLockerStyles.exitButtonContainer}>
+							<TouchableOpacity style={openLockerStyles.exitButton} onPress={() => navigation.navigate('Home')}>
+								<Text style={openLockerStyles.exitButtonLabel}>Exit</Text>
+							</TouchableOpacity>
 						</View>
 	  				</View>
 				</View>
@@ -132,11 +135,25 @@ const openLockerStyles = StyleSheet.create({
 		width: '70%',
 		alignSelf: 'center'
 	},
+	exitButtonContainer: {
+		flex: 1,
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 	exitButton: {
-		width: '70%',
-		alignSelf: 'center', 
-		backgroundColor: '#519FE2', 
-		borderRadius: 5
+		width: '70%', 
+		backgroundColor: '#519FE2',
+		height: 40, 
+		borderRadius: 5,
+		elevation: 2,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	exitButtonLabel: {
+		fontSize: 18,
+		color: 'white',
+		textAlign: 'center'
 	},
 	highlightBlue: {
 		fontWeight: '700',

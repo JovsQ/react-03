@@ -6,6 +6,7 @@ import {
 	ImageBackground,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View
 	} from 'react-native';
 
@@ -38,34 +39,39 @@ export default class PaymentScreen extends Component {
 				</View>
 				
 				<View style={{width: '35%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', elevation: 2}}>
-					<View style={{flex: 5, width: '100%' , justifyContent: 'center'}}>
+					<View style={{flex: 5, width: '100%' , justifyContent: 'center', padding: 10}}>
           				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
           				<Text style={paymentStyles.amount}>P0.00</Text>
-          				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P20" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
-          						phoneNumber: phoneNumber, size: size, price: price
-          					})}/>	
-          				</View>
-          				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P50" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
-          						phoneNumber: phoneNumber, size: size, price: price
-          					})}/>	
-          				</View>
-          				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P100" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
-          						phoneNumber: phoneNumber, size: size, price: price
-          					})}/>	
-          				</View>
-          				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P500" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
-          						phoneNumber: phoneNumber, size: size, price: price
-          					})}/>	
-          				</View>
-          				<View style={paymentStyles.temporaryButton}>
-          					<Button title="P1000" style={{fontSize: 14, backgroundColor: '#519FE2'}} onPress={() => navigation.navigate('OpenLocker', {
-          						phoneNumber: phoneNumber, size: size, price: price
-          					})}/>	
-          				</View>
+          				<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P20</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P50</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P100</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P200</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P500</Text>
+							</TouchableOpacity>
+						</View>
+						<View style={paymentStyles.temporaryButtonContainer}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+								<Text style={paymentStyles.temporaryButtonLabel}>P1000</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</View>
 				
@@ -92,23 +98,38 @@ const paymentStyles = StyleSheet.create({
 	 	alignSelf: 'center'
 	},
 	amountLabel: {
+		flex: 1,
 		fontWeight: 'bold',
 		fontSize: 20,
 		textAlign: 'center'
 	},
 	amount: {
+		flex: 1,
 		fontWeight: 'bold',
 		fontSize: 24,
 		textAlign: 'center',
 		color: '#519FE2'
 	},
+	temporaryButtonContainer: {
+		width: '100%',
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 	temporaryButton: {
-		paddingLeft: 20,
-		paddingRight: 20,
-		paddingTop: 1,
-		paddingBottom: 1,
-		width:'100%', 
-		justifyContent: 'center'
+		width:'70%',
+		height: 25, 
+		justifyContent: 'center',
+		alignItems: 'center',
+		elevation: 2,
+		backgroundColor: '#519FE2',
+		borderRadius: 5
+	},
+	temporaryButtonLabel: {
+		fontSize: 14,
+		color: 'white',
+		textAlign: 'center'
 	}
+
 
 });
