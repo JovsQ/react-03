@@ -43,32 +43,56 @@ export default class PaymentScreen extends Component {
           				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
           				<Text style={paymentStyles.amount}>P0.00</Text>
           				<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P20</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P50</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P100</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P200</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P500</Text>
 							</TouchableOpacity>
 						</View>
 						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker')}>
+							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => navigation.navigate('OpenLocker', {
+								phoneNumber: phoneNumber, 
+								size: size, 
+								price: price
+							})}>
 								<Text style={paymentStyles.temporaryButtonLabel}>P1000</Text>
 							</TouchableOpacity>
 						</View>
