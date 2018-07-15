@@ -24,8 +24,18 @@ import sevenButton from '../images/seven.png';
 import eightButton from '../images/eight.png';
 import nineButton from '../images/nine.png';
 import zeroButton from '../images/zero.png';
+import deleteButton from '../images/delete.png';
+import blankButton from '../images/blank_button.png';
 
 export default class EnterPinScreen extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			text: '------',
+			code: ''
+		}
+	}
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
@@ -37,6 +47,42 @@ export default class EnterPinScreen extends Component {
 
 	validatePin() {
 		this.props.navigation.navigate('ThankYou');
+	}
+
+	enterPin(number) {
+		var tempCode = this.state.code;
+		if (number != 'delete') {
+			if (tempCode == '') {
+				tempCode = number;
+			} else if (tempCode.length < 6) {
+				tempCode = tempCode + number;
+			}
+		} else {
+			if (tempCode != '') {
+				tempCode = tempCode.substring(0, tempCode.length - 1);
+			}
+		}
+
+		if (tempCode.length == 6) {
+			if (tempCode == '111111') {
+				this.setState({text: '------'});
+				this.setState({code: ''});
+				this.props.navigation.navigate('ServiceSelect');
+			} else {
+				this.setState({text: '------'});
+				this.setState({code: ''});
+				this.props.navigation.navigate('ThankYou');			
+			}
+		} else {
+			this.setState({code: tempCode})
+			for (let i = 0; i < 6; i++) {
+				if (tempCode.length < i + 1) {
+					tempCode = tempCode + '-';
+				}
+			}
+			this.setState({text: tempCode});
+		}
+		
 	}
 
 	render() {
@@ -58,44 +104,50 @@ export default class EnterPinScreen extends Component {
 		          				<Text style={pinStyles.headerText}>Please enter PIN we sent to your</Text>
 		          				<Text style={pinStyles.headerText}>mobile number to open locker</Text>
 		          			</View>
-		          			<Text style={pinStyles.input}>------</Text>
+		          			<Text style={pinStyles.input}>{this.state.text}</Text>
 		          			<View style={pinStyles.numpad}>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => navigation.navigate('ServiceSelect')}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('1')}>
 		          						<Image source={oneButton} alt="one_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('2')}>
 		          						<Image source={twoButton} alt="two_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('3')}>
 		          						<Image source={threeButton} alt="three_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>		          					
 		          				</View>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('4')}>
 		          						<Image source={fourButton} alt="four_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('5')}>
 		          						<Image source={fiveButton} alt="five_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('6')}>
 		          						<Image source={sixButton} alt="six_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
 		          				</View>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('7')}>
 		          						<Image source={sevenButton} alt="seven_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('8')}>
 		          						<Image source={eightButton} alt="eight_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton}>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('9')}>
 		          						<Image source={nineButton} alt="nine_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
 		          				</View>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.validatePin()}>
+		          					<View style={pinStyles.numpadButton}>
+		          						<Image source={blankButton} alt="blank_button" style={pinStyles.numberButton}/>
+		          					</View>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('0')}>
 		          						<Image source={zeroButton} alt="zero_button" style={pinStyles.numberButton}/>
+		          					</TouchableOpacity>
+		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('delete')}>
+		          						<Image source={deleteButton} alt="delete_button" style={pinStyles.numberButton}/>
 		          					</TouchableOpacity>
 		          				</View>
 		          			</View>
