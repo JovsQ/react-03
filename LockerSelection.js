@@ -49,27 +49,7 @@ export default class LockerSelection extends Component {
 		AsyncStorage.getItem(SMART_LOCKER_KEY)
 		.then((value) => {
 			var accounts = JSON.parse(value);
-			// accounts = [];
-			// var account2 = {
-			// 	locker: '2'
-			// }
-			// var account3 = {
-			// 	locker: '3'
-			// }
-			// var account4 = {
-			// 	locker: '4'
-			// }
-			// var account5 = {
-			// 	locker: '5'
-			// }
-			// var account6 = {
-			// 	locker: '6'
-			// }
-			// accounts.push(account2);
-			// accounts.push(account2);
-			// accounts.push(account4);
-			// accounts.push(account5);
-			// accounts.push(account6);
+	
 			if (!accounts) {
 				this.props.navigation.navigate('Payment', {
 					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),

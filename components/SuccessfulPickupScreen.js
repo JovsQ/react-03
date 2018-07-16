@@ -19,11 +19,15 @@ export default class SuccessfulPickupScreen extends Component {
 		Orientation.lockToLandscape();
 	}
 
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 
 		const { navigation } = this.props;
 		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
-		const lockerNo = this.props.navigation.getParam('lockerNo', '0');
+		const locker = this.props.navigation.getParam('locker', '0');
 
 		return (
 			<ImageBackground source={appBG} style={pickupStyles.container} alt='bg'>
@@ -40,7 +44,7 @@ export default class SuccessfulPickupScreen extends Component {
 					<View style={pickupStyles.rightContainer}>
 						<View style={pickupStyles.rightLabel}>
 							<Text style={pickupStyles.rightLabelText}>Please proceed</Text>
-							<Text style={pickupStyles.rightLabelText}>to locker <Text style={pickupStyles.highlightBlue}>No. {lockerNo}</Text></Text>
+							<Text style={pickupStyles.rightLabelText}>to locker <Text style={pickupStyles.highlightBlue}>No. {locker}</Text></Text>
 						</View>
 						<View style={pickupStyles.exitButtonContainer}>
 							<TouchableOpacity style={pickupStyles.exitButton} onPress={() => navigation.navigate('PickupLocker')}>

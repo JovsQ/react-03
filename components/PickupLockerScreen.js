@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
 	Alert,
+	AsyncStorage,
 	Button,
 	FlatList,
 	Image,
@@ -17,32 +18,76 @@ import appBG from '../images/app_bg.png';
 import lock from '../images/padlock.png';
 import arrowLeft from '../images/arrow_left.png';
 
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+
 export default class PickupLockerScreen extends Component {
 	
+	constructor(props) {
+		super(props);
+		this.state = {
+			accounts : []
+		}
+	}
+
 	componentDidMount() {
+		this.fetchData();
 		Orientation.lockToLandscape();
 	}
 
-	itemSelected(item, lockerNo) {
+	componentWillUnmount() {
+
+	}
+
+	itemSelected(phoneNumber, locker) {
 		// Alert.alert(item + ' ' + lockerNo);
-		this.props.navigation.navigate('SuccessfulPickup', {
-			phoneNumber: item, lockerNo: lockerNo
+		var accountsList =  this.state.accounts;
+
+		var remainingAccounts = [];
+		for (a in accountsList) {
+			if (accountsList[a].phoneNumber != phoneNumber && accountsList[a].locker != locker) {
+				remainingAccounts.push(accountsList[a]);
+			} else {
+				accountsList[a].status = 'drop off';
+			}
+		}
+
+		AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(accountsList))
+		.then((value) => {
+
+			this.setState({
+				accounts: remainingAccounts
+			})
+
+			this.props.navigation.navigate('SuccessfulPickup', {
+				phoneNumber: phoneNumber,
+				locker: locker
+			})
+		})
+	}
+
+	fetchData() {
+		AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
+			var accounts = JSON.parse(value);
+			if (!accounts) {
+				accounts = [];
+			}
+
+			var pickupAccounts = [];
+			for (a in accounts) {
+				if (accounts[a].status = 'pickup') {
+					pickupAccounts.push(accounts[a]);
+				}
+			}
+
+			this.setState({
+				accounts: pickupAccounts
+			})			
 		});
 	}
 
 	render() {
 
 		const { navigation } = this.props;
-		const sampleData = [
-			{key: '09950815097', lockerNo: 1},
-			{key: '09123456789', lockerNo: 2},
-			{key: '09123456788', lockerNo: 3},
-			{key: '09123456787', lockerNo: 4},
-			{key: '09123456786', lockerNo: 5},
-			{key: '09123456785', lockerNo: 6},
-			{key: '09123456784', lockerNo: 7},
-			{key: '09123456783', lockerNo: 8}
-		]
 		const colors = [
 			'white','#DCDCDC'
 		]
@@ -61,13 +106,13 @@ export default class PickupLockerScreen extends Component {
 	          	<View style={pickupStyles.mainContent}>
 	          		<View style={pickupStyles.cardContent}>
 	          			<FlatList style={pickupStyles.list}
-				        data={sampleData}
+				        data={this.state.accounts}
 				       	keyExtractor={(item, index) => index.toString()}
 				        renderItem={({item, index}) => <TouchableOpacity style={{backgroundColor: colors[index % colors.length], flex: 1,	flexDirection: 'row', padding: 10, paddingLeft: 10, paddingRight: 30}}
-				        onPress={this.itemSelected.bind(this, item.key, item.lockerNo)}>
+				        onPress={this.itemSelected.bind(this, item.phoneNumber, item.locker)}>
 				        	<Image source={lock} alt='lock' style={pickupStyles.lock}/>
-				        	<Text style={pickupStyles.item} >{item.key}</Text>
-				        	<Text style={pickupStyles.lockerNo} >#{item.lockerNo}</Text>
+				        	<Text style={pickupStyles.item} >{item.phoneNumber}</Text>
+				        	<Text style={pickupStyles.lockerNo} >#{item.locker}</Text>
 				        </TouchableOpacity>}/>
 				        <TouchableOpacity style={pickupStyles.selectButton} onPress={() => navigation.navigate('Home')}>
 				        	<Text style={pickupStyles.selectButtonLabel}>Done</Text>

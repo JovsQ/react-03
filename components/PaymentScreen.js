@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
 	Alert,
+	AsyncStorage,
 	Button,
 	Image,
 	ImageBackground,
@@ -13,6 +14,8 @@ import {
 
 import appBG from '../images/app_bg.png';
 import insertCash from '../images/insert_cash.png';
+
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
 
 export default class PaymentScreen extends Component {
 
@@ -30,29 +33,53 @@ export default class PaymentScreen extends Component {
 	insertPayement(insertAmount) {
 
 		var currentPayment = parseInt(this.state.amount, 10);
+
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const size = this.props.navigation.getParam('size', 'no size');
+		const locker = this.props.navigation.getParam('locker', '0');
 		const price = parseInt(this.props.navigation.getParam('price', '0'), 10);
+		const status = 'pickup';
 
 		if (currentPayment < price) {
 			currentPayment += insertAmount;
 			this.setState({
 				amount: currentPayment.toString()
 			})
-			if (currentPayment == price) {
-				Alert.alert(`Thank you for giving the exact amount`);
-				this.props.navigation.navigate('OpenLocker', {
-					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'), 
-					size: this.props.navigation.getParam('size', 'no size'), 
-					price: price,
-					locker: this.props.navigation.getParam('locker', '0')
-				});
-			} else if (currentPayment > price) {
-				Alert.alert(`Your change is P${currentPayment - price}.00`);
-				this.props.navigation.navigate('OpenLocker', {
-					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'), 
-					size: this.props.navigation.getParam('size', 'no size'), 
-					price: price,
-					locker: this.props.navigation.getParam('locker', '0')
-				});
+
+
+			if (currentPayment >= price) {
+				// TODO saving transaction
+				var account = {
+					phoneNumber: phoneNumber,
+					size: size,
+					locker: locker,
+					status: status
+				}
+
+				AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
+					var accounts = JSON.parse(value);
+
+					if (!accounts) {
+						accounts = [];
+					}
+
+					accounts.push(account);
+
+					AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(accounts))
+					.then((value) => {
+						if (currentPayment == price) {
+							Alert.alert(`Thank you for giving the exact amount`);
+						} else {
+							Alert.alert(`Your change is P${currentPayment - price}.00`);
+						}
+						this.props.navigation.navigate('OpenLocker', {
+							phoneNumber: phoneNumber, 
+							size: size, 
+							price: price,
+							locker: locker
+						});
+					})
+				})
 			}
 		}
 		
