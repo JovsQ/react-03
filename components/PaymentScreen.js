@@ -42,14 +42,16 @@ export default class PaymentScreen extends Component {
 				this.props.navigation.navigate('OpenLocker', {
 					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'), 
 					size: this.props.navigation.getParam('size', 'no size'), 
-					price: price
+					price: price,
+					locker: this.props.navigation.getParam('locker', '0')
 				});
 			} else if (currentPayment > price) {
 				Alert.alert(`Your change is P${currentPayment - price}.00`);
 				this.props.navigation.navigate('OpenLocker', {
 					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'), 
 					size: this.props.navigation.getParam('size', 'no size'), 
-					price: price
+					price: price,
+					locker: this.props.navigation.getParam('locker', '0')
 				});
 			}
 		}

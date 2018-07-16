@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {
+	Alert,
+	AsyncStorage,
 	BackHandler,
 	Button,
 	Image,
@@ -19,6 +21,10 @@ import arrowLeft from './images/arrow_left.png';
 import smallLocker from './images/small_locker.png';
 import bigLocker from './images/big_locker.png';
 
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+const BIG_LOCKERS = ['1', '2', '3'];
+const SMALL_LOCKERS = ['4', '5', '6'];
+
 export default class LockerSelection extends Component {
 
 	componentDidMount() {
@@ -32,6 +38,78 @@ export default class LockerSelection extends Component {
 
 	hadleBackButton() {
 		return true;
+	}
+
+	assignLocker(size) {
+
+		var selectedSize = size == 'big' ? BIG_LOCKERS : SMALL_LOCKERS;
+		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		const selecteSize = size == 'big' ? 'Big Locker' : 'Small Locker';
+		const price = size == 'big' ? 600 : 400;
+		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		.then((value) => {
+			var accounts = JSON.parse(value);
+			// accounts = [];
+			// var account2 = {
+			// 	locker: '2'
+			// }
+			// var account3 = {
+			// 	locker: '3'
+			// }
+			// var account4 = {
+			// 	locker: '4'
+			// }
+			// var account5 = {
+			// 	locker: '5'
+			// }
+			// var account6 = {
+			// 	locker: '6'
+			// }
+			// accounts.push(account2);
+			// accounts.push(account2);
+			// accounts.push(account4);
+			// accounts.push(account5);
+			// accounts.push(account6);
+			if (!accounts) {
+				this.props.navigation.navigate('Payment', {
+					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
+					size: selecteSize,
+					price: price,
+					locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
+				});
+			} else {
+				var notAvailable = [];
+				for(a in accounts) {
+					notAvailable.push(accounts[a].locker);
+				}
+
+				for(n in notAvailable) {
+					selectedSize = this.removeFromList(selectedSize, notAvailable[n]);
+				}
+
+				if (selectedSize.length > 0) {
+					this.props.navigation.navigate('Payment', {
+						phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
+						size: selecteSize,
+						price: price,
+						locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
+					});
+				} else {
+					Alert.alert(`No locker available`);
+				}
+				
+			}
+		})
+	}
+
+	removeFromList(array, element) {
+		var remainingArray = [];
+		for (a in array) {
+			if (array[a] != element) {
+				remainingArray.push(array[a]);
+			}
+		}
+		return remainingArray;
 	}
 
 	render() {
@@ -51,11 +129,7 @@ export default class LockerSelection extends Component {
 	          		<View style={lockerStyles.headerButtonRight}></View>
 	          	</View>
 	          	<View style={lockerStyles.mainContent}>
-	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment', {
-	            		phoneNumber: phoneNumber,
-	            		size: 'Big Locker',
-	            		price: 600
-	            	})}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => this.assignLocker('big')}>
 	          			<View style={lockerStyles.lockerImageContainer}> 
 	          				<Image source={bigLocker} style={lockerStyles.bigLocker} alt="big_locker"/>
 	          			</View>
@@ -65,10 +139,7 @@ export default class LockerSelection extends Component {
 	          			</View>
 	          			
 	          		</TouchableOpacity>
-	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => navigation.navigate('Payment', {
-	          		phoneNumber: phoneNumber,
-	          		size: 'Small Locker',
-	          		price: 400})}>
+	          		<TouchableOpacity style={lockerStyles.lockerButton} onPress={() => this.assignLocker('small')}>
 	          			<View style={lockerStyles.lockerImageContainer}>
 	          				<Text style={{flex: 1}}></Text>
 	          				<Image source={smallLocker} style={lockerStyles.smallLocker} alt="small_locker"/>

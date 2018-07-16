@@ -26,6 +26,7 @@ export default class OpenLockerScreen extends Component {
 		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
 		const size = this.props.navigation.getParam('size', 'no size');
 		const price = this.props.navigation.getParam('price', '0'); 
+		const locker = this.props.navigation.getParam('locker', '0');
 
 		return (
 			<ImageBackground source={appBG} style={openLockerStyles.container} alt='bg'>
@@ -42,7 +43,7 @@ export default class OpenLockerScreen extends Component {
 					<View style={openLockerStyles.rightContainer}>
 						<View style={openLockerStyles.rightLabel}>
 							<Text style={openLockerStyles.rightLabelText}>Please proceed</Text>
-							<Text style={openLockerStyles.rightLabelText}>to locker <Text style={openLockerStyles.highlightBlue}>No. 12</Text></Text>
+							<Text style={openLockerStyles.rightLabelText}>to locker <Text style={openLockerStyles.highlightBlue}>No. {locker}</Text></Text>
 						</View>
 						<View style={openLockerStyles.rightDetails}>
 							<Text style={openLockerStyles.rightLabelText}>For <Text style={openLockerStyles.highlightBlack}>Drop Off</Text></Text>
