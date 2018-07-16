@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
 	Alert,
+	AsyncStorage,
 	FlatList,
 	Image,
 	ImageBackground,
@@ -15,15 +16,44 @@ import appBG from '../images/app_bg.png';
 import lock from '../images/padlock.png';
 import arrowLeft from '../images/arrow_left.png';
 
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+
 export default class DropOffLockerScreen extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			accounts: []
+		}
+	}
+
 	componentDidMount() {
+		this.fetchData();
 		Orientation.lockToLandscape();
 	}
 
-	itemSelected(item) {
+	itemSelected(phoneNumber) {
 		// Alert.alert(item);
 		this.props.navigation.navigate('SuccessfulDropOff');
+	}
+
+	fetchData() {
+		AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
+			var accounts = JSON.parse(value);
+			if (!accounts) {
+				accounts = [];
+			}
+			var dropOffAccounts = [];
+			for (a in accounts) {
+				if (accounts[a].status == 'drop off') {
+					dropOffAccounts.push(accounts[a]);
+				}
+			}
+
+			this.setState({
+				accounts: dropOffAccounts
+			})
+		})
 	}
 
 	render() {
@@ -57,11 +87,11 @@ export default class DropOffLockerScreen extends Component {
 	          	<View style={dropOffStyles.mainContent}>
 	          		<View style={dropOffStyles.cardContent}>
 	          			<FlatList style={dropOffStyles.list}
-				        data={sampleData}
+				        data={this.state.accounts}
 				       	keyExtractor={(item, index) => index.toString()}
 				        renderItem={({item, index}) => <TouchableOpacity style={{backgroundColor: colors[index % colors.length], flex: 1,	flexDirection: 'row', padding: 10, paddingLeft: 30, paddingRight: 30}}
-				        onPress={this.itemSelected.bind(this, item.key)}>
-				        	<Text style={dropOffStyles.item} >{item.key}</Text>
+				        onPress={this.itemSelected.bind(this, item.phoneNumber)}>
+				        	<Text style={dropOffStyles.item} >{item.phoneNumber}</Text>
 				        </TouchableOpacity>}/>
 				        <TouchableOpacity style={dropOffStyles.selectButton} onPress={() => navigation.navigate('Home')}>
 				        	<Text style={dropOffStyles.selectButtonLabel}>Done</Text>

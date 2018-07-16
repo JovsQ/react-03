@@ -39,28 +39,66 @@ export default class PickupLockerScreen extends Component {
 	}
 
 	itemSelected(phoneNumber, locker) {
-		// Alert.alert(item + ' ' + lockerNo);
-		var accountsList =  this.state.accounts;
+		// var accountsList = this.state.accounts;
 
-		var remainingAccounts = [];
-		for (a in accountsList) {
-			if (accountsList[a].phoneNumber != phoneNumber && accountsList[a].locker != locker) {
-				remainingAccounts.push(accountsList[a]);
-			} else {
-				accountsList[a].status = 'drop off';
+		// var remainingAccounts = [];
+		// var newList = [];
+
+		// for (a in accountsList) {
+		// 	if (accountsList[a].phoneNumber == phoneNumber && accountsList[a].locker == locker) {
+		// 		accountsList[a].status = 'drop off';
+		// 	} else {
+		// 		remainingAccounts.push(accountsList[a]);
+		// 	}
+		// }
+
+		// AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(newList))
+		// .then((value) => {
+
+		// 	var stringIna = 'default string: ';
+		// 	for (n in newList) {
+		// 		stringIna += `${newList[n].status} ` ;
+		// 	}
+
+		// 	Alert.alert(stringIna);
+		// 	this.setState(
+		// 		{ accounts: remainingAccounts },
+		// 		() => {
+		// 			this.props.navigation.navigate('SuccessfulPickup', {
+		// 				phoneNumber: phoneNumber,
+		// 				locker: locker
+		// 			})
+		// 		})
+		// })
+
+		// ---------------------
+
+		AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
+			var allAccounts = JSON.parse(value);
+			if (!allAccounts) {
+				allAccounts = [];
 			}
-		}
 
-		AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(accountsList))
-		.then((value) => {
+			var remainingAccounts = [];
 
-			this.setState({
-				accounts: remainingAccounts
-			})
+			for (a in allAccounts) {
+				if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].locker == locker && allAccounts[a].status == 'pickup') {
+					allAccounts[a].status = 'drop off';
+				} else if (allAccounts[a].status =='pickup') {
+					remainingAccounts.push(allAccounts[a]);
+				}
+			}
 
-			this.props.navigation.navigate('SuccessfulPickup', {
-				phoneNumber: phoneNumber,
-				locker: locker
+			AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(allAccounts))
+			.then((value) => {
+				this.setState(
+				{ accounts: remainingAccounts },
+				() => {
+					this.props.navigation.navigate('SuccessfulPickup', {
+						phoneNumber: phoneNumber,
+						locker: locker
+					})
+				})		
 			})
 		})
 	}
@@ -74,7 +112,7 @@ export default class PickupLockerScreen extends Component {
 
 			var pickupAccounts = [];
 			for (a in accounts) {
-				if (accounts[a].status = 'pickup') {
+				if (accounts[a].status == 'pickup') {
 					pickupAccounts.push(accounts[a]);
 				}
 			}

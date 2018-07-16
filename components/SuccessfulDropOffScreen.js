@@ -42,7 +42,7 @@ export default class SuccessfulDropOffScreen extends Component {
 							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
 						</View>
 						<View style={dropOffStyles.exitButtonContainer}>
-							<TouchableOpacity style={dropOffStyles.exitButton} onPress={() => navigation.navigate('PickupLocker')}>
+							<TouchableOpacity style={dropOffStyles.exitButton} onPress={() => navigation.navigate('DropOffLocker')}>
 								<Text style={dropOffStyles.exitButtonLabel}>Go back to Locker List</Text>
 							</TouchableOpacity>
 						</View>
