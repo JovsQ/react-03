@@ -52,7 +52,7 @@ export default class LockerSelection extends Component {
 			if (!accounts) {
 				this.props.navigation.navigate('Payment', {
 					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
-					size: selecteSize,
+					size: size,
 					price: price,
 					locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
 				});
@@ -71,7 +71,7 @@ export default class LockerSelection extends Component {
 				if (selectedSize.length > 0) {
 					this.props.navigation.navigate('Payment', {
 						phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
-						size: selecteSize,
+						size: size,
 						price: price,
 						locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
 					});
