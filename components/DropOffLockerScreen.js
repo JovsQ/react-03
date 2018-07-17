@@ -17,6 +17,8 @@ import lock from '../images/padlock.png';
 import arrowLeft from '../images/arrow_left.png';
 
 const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+const BIG_LOCKERS = ['1', '2', '3'];
+const SMALL_LOCKERS = ['4', '5', '6'];
 
 export default class DropOffLockerScreen extends Component {
 
@@ -32,9 +34,79 @@ export default class DropOffLockerScreen extends Component {
 		Orientation.lockToLandscape();
 	}
 
-	itemSelected(phoneNumber) {
-		// Alert.alert(item);
-		this.props.navigation.navigate('SuccessfulDropOff');
+	itemSelected(phoneNumber, size, status) {
+		// TODO assign locker
+		if (status != 'clean') {
+			var selectedSize = size == 'big' ? BIG_LOCKERS : SMALL_LOCKERS;
+			AsyncStorage.getItem(SMART_LOCKER_KEY)
+			.then((value) => {
+				var accounts = JSON.parse(value);
+
+				if (!accounts) {
+					this.updateItems(phoneNumber, selectedSize[Math.floor(Math.random() * selectedSize.length)], accounts);
+				} else {
+					var notAvailable = [];
+					for (a in accounts) {
+						if (accounts[a].status == 'pickup' || accounts[a].status == 'clean') {
+							notAvailable.push(accounts[a].locker);
+						}
+					}
+
+					for (n in notAvailable) {
+						selectedSize = this.removeFromList(selectedSize, notAvailable[n]);
+					}
+
+					if (selectedSize.length > 0) {
+						this.upateItems(phoneNumber, selectedSize[Math.floor(Math.random() * selectedSize.length)], accounts);
+					} else {
+						Alert.Alert(`No locker available.`)
+					}
+				}
+			})
+			.catch((error) => {
+				Alert.alert(`Line 66 error: ${error}`);
+			})
+		}
+	}
+
+	removeFromList(array, element) {
+		var remainingArray = [];
+		for (a in array) {
+			if (array[a] != element) {
+				remainingArray.push(array[a]);
+			}
+		}
+		return remainingArray;
+	}
+
+	upateItems(phoneNumber, locker, allAccounts) {
+
+		var remainingAccounts = [];
+
+		for (a in allAccounts) {
+			if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'drop off') {
+				allAccounts[a].status = 'clean';
+				allAccounts[a].locker = locker;
+			}
+			if (allAccounts[a].status == 'drop off' || allAccounts[a].status == 'clean') {
+				remainingAccounts.push(allAccounts[a]);
+			}
+		}
+
+		AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(allAccounts))
+		.then((value) => {
+			this.setState(
+			{ accounts: remainingAccounts },
+			() => {
+				this.props.navigation.navigate('SuccessfulDropOff', {
+					locker: locker
+				})
+			}
+			)
+		})
+		.catch((error) => {
+			Alert.alert(`Line 104 error: ${error}`);
+		})
 	}
 
 	fetchData() {
@@ -45,7 +117,7 @@ export default class DropOffLockerScreen extends Component {
 			}
 			var dropOffAccounts = [];
 			for (a in accounts) {
-				if (accounts[a].status == 'drop off') {
+				if (accounts[a].status == 'drop off' || accounts[a].status == 'clean') {
 					dropOffAccounts.push(accounts[a]);
 				}
 			}
@@ -56,19 +128,13 @@ export default class DropOffLockerScreen extends Component {
 		})
 	}
 
+	showLocker(status, locker) {
+		return status == 'clean' ? `#${locker}` : ''; 
+	}
+
 	render() {
 
 		const { navigation } = this.props;
-		const sampleData = [
-			{key: '09950815097'},
-			{key: '09123456789'},
-			{key: '09123456788'},
-			{key: '09123456787'},
-			{key: '09123456786'},
-			{key: '09123456785'},
-			{key: '09123456784'},
-			{key: '09123456783'}
-		];
 		const colors = [
 			'white','#DCDCDC'
 		];
@@ -90,8 +156,9 @@ export default class DropOffLockerScreen extends Component {
 				        data={this.state.accounts}
 				       	keyExtractor={(item, index) => index.toString()}
 				        renderItem={({item, index}) => <TouchableOpacity style={{backgroundColor: colors[index % colors.length], flex: 1,	flexDirection: 'row', padding: 10, paddingLeft: 30, paddingRight: 30}}
-				        onPress={this.itemSelected.bind(this, item.phoneNumber)}>
+				        onPress={this.itemSelected.bind(this, item.phoneNumber, item.size, item.status)}>
 				        	<Text style={dropOffStyles.item} >{item.phoneNumber}</Text>
+				        	<Text style={dropOffStyles.lockerNo} >{this.showLocker(item.status, item.locker)}</Text>
 				        </TouchableOpacity>}/>
 				        <TouchableOpacity style={dropOffStyles.selectButton} onPress={() => navigation.navigate('Home')}>
 				        	<Text style={dropOffStyles.selectButtonLabel}>Done</Text>
@@ -160,8 +227,7 @@ const dropOffStyles = StyleSheet.create({
 		flex: 7,
 	    fontSize: 18,
 	    textAlign: 'left',
-	    letterSpacing: 1,
-	    paddingLeft: 30
+	    letterSpacing: 1
 	},
 	lockerNo: {
 		flex: 1,

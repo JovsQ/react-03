@@ -43,7 +43,6 @@ export default class LockerSelection extends Component {
 	assignLocker(size) {
 
 		var selectedSize = size == 'big' ? BIG_LOCKERS : SMALL_LOCKERS;
-		AsyncStorage.getItem(SMART_LOCKER_KEY)
 		const selecteSize = size == 'big' ? 'Big Locker' : 'Small Locker';
 		const price = size == 'big' ? 600 : 400;
 		AsyncStorage.getItem(SMART_LOCKER_KEY)
@@ -60,7 +59,9 @@ export default class LockerSelection extends Component {
 			} else {
 				var notAvailable = [];
 				for(a in accounts) {
-					notAvailable.push(accounts[a].locker);
+					if (accounts[a].status == 'pickup' || accounts[a].status == 'clean') {
+						notAvailable.push(accounts[a].locker);	
+					}					
 				}
 
 				for(n in notAvailable) {

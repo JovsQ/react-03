@@ -39,39 +39,6 @@ export default class PickupLockerScreen extends Component {
 	}
 
 	itemSelected(phoneNumber, locker) {
-		// var accountsList = this.state.accounts;
-
-		// var remainingAccounts = [];
-		// var newList = [];
-
-		// for (a in accountsList) {
-		// 	if (accountsList[a].phoneNumber == phoneNumber && accountsList[a].locker == locker) {
-		// 		accountsList[a].status = 'drop off';
-		// 	} else {
-		// 		remainingAccounts.push(accountsList[a]);
-		// 	}
-		// }
-
-		// AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(newList))
-		// .then((value) => {
-
-		// 	var stringIna = 'default string: ';
-		// 	for (n in newList) {
-		// 		stringIna += `${newList[n].status} ` ;
-		// 	}
-
-		// 	Alert.alert(stringIna);
-		// 	this.setState(
-		// 		{ accounts: remainingAccounts },
-		// 		() => {
-		// 			this.props.navigation.navigate('SuccessfulPickup', {
-		// 				phoneNumber: phoneNumber,
-		// 				locker: locker
-		// 			})
-		// 		})
-		// })
-
-		// ---------------------
 
 		AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
 			var allAccounts = JSON.parse(value);

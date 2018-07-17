@@ -22,6 +22,7 @@ export default class SuccessfulDropOffScreen extends Component {
 	render() {
 
 		const { navigation } = this.props;
+		const locker = this.props.navigation.getParam('locker', '0');
 
 		return (
 			<ImageBackground source={appBG} style={dropOffStyles.container} alt='bg'>
@@ -37,7 +38,7 @@ export default class SuccessfulDropOffScreen extends Component {
 					</View>
 					<View style={dropOffStyles.rightContainer}>
 						<View style={dropOffStyles.rightLabel}>
-							<Text style={dropOffStyles.rightLabelText}>Locker <Text style={dropOffStyles.highlightBlue}>No. 12</Text></Text>
+							<Text style={dropOffStyles.rightLabelText}>Locker <Text style={dropOffStyles.highlightBlue}>No. {locker}</Text></Text>
 							<Text style={dropOffStyles.rightLabelText}>has been assigned</Text>
 							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
 						</View>

@@ -48,7 +48,6 @@ export default class PaymentScreen extends Component {
 
 
 			if (currentPayment >= price) {
-				// TODO saving transaction
 				var account = {
 					phoneNumber: phoneNumber,
 					size: size,
