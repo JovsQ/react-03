@@ -4,8 +4,9 @@ import {
 	AsyncStorage,
 	Button,
 	Image,
-	ImageBackground, 
+	ImageBackground,
 	View,
+	StyleSheet,
 	Text,
 	TextInput,
 	TouchableOpacity,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import { createStackNavigator, StackNavigator } from 'react-navigation';
 import Orientation from 'react-native-orientation';
+import Modal from 'react-native-modal';
 
 //screens
 import SampleScreen from './App';
@@ -36,7 +38,8 @@ class HomeScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: ''
+			text: '',
+			modalVisible: false
 		}
 	}
 
@@ -96,6 +99,27 @@ class HomeScreen extends Component {
 		Alert.alert(Math.floor(100000 + Math.random() * 900000).toString());
 	}
 
+	modalContent() {
+		return (
+			<View style={navigationStyles.modalContent}>
+				<Text>Hello World!</Text>
+				{this.modalButton('09950815097', () => this.setState({ modalVisible: false }))}
+			</View>
+		)
+	}
+
+	modalButton(text, phoneNumber, onPress) {
+		return (
+			<TouchableOpacity onPress={onPress}>
+				<View style={navigationStyles.button}>
+					<Text style={navigationStyles.modalText}>to <Text style={navigationStyles.highlightBlue}>{phoneNumber}</Text></Text>
+					<Text>{text}</Text>
+					<Text>{text}</Text>
+				</View>
+			</TouchableOpacity>
+		)
+	}
+
 	render() {
 	    return (
 	      <ImageBackground source={appBG} alt="bg" style={{flex: 1, justifyContent: 'center', paddingBottom: 48}}>
@@ -121,6 +145,10 @@ class HomeScreen extends Component {
 	          </View>
 
 	        </View>
+	        <Modal isVisible={this.state.modalVisible}>
+	        	{this.modalContent()}
+	        </Modal>
+
 	      </ImageBackground>
 	    );
 	  }	
@@ -128,6 +156,37 @@ class HomeScreen extends Component {
 
 	}
 }
+
+const navigationStyles = StyleSheet.create({
+	button: {
+	    backgroundColor: 'lightblue',
+	    padding: 12,
+	    margin: 16,
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    borderRadius: 4,
+	    borderColor: 'rgba(0, 0, 0, 0.1)',
+	},
+	modalContent: {
+	    backgroundColor: 'white',
+	    padding: 22,
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    borderRadius: 4,
+	    borderColor: 'rgba(0, 0, 0, 0.1)',
+	},
+	modalText: {
+		fontWeight: '400',
+		fontSize: 18,
+		textAlign: 'left',
+		alignSelf: 'stretch'
+	},
+	highlightBlue: {
+		fontWeight: '700',
+		color: '#519FE2'
+	}
+ 
+});
 
 class PhoneInput extends Component {
 	constructor(props) {

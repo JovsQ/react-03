@@ -4,11 +4,13 @@ import {
 	Alert,
 	AsyncStorage,
 	Button,
+	StyleSheet,
 	Text,
 	TextInput,
+	TouchableOpacity,
 	View,
 } from 'react-native';
-
+import Modal from 'react-native-modal';
 
 const sampleKey = 'SAMPLER';
 
@@ -22,8 +24,15 @@ export default class TestScreen extends Component {
 		super(props);
 		this.state = {
 			text: '',
-			message: ''
+			message: '',
+			modalVisible: false
 		}
+	}
+
+	toggleModal(visible) {
+		this.setState({
+			modalVisible: visible
+		})
 	}
 
 	saveData(message) {
@@ -72,21 +81,100 @@ export default class TestScreen extends Component {
 		AsyncStorage.removeItem(sampleKey);
 	}
 
+	state = {
+	    visibleModal: null,
+	  };
+
+	  _renderButton = (text, onPress) => (
+	    <TouchableOpacity onPress={onPress}>
+	      <View style={styles.button}>
+	        <Text>{text}</Text>
+	      </View>
+	    </TouchableOpacity>
+	  );
+
+	  _renderModalContent = () => (
+	    <View style={styles.modalContent}>
+	      <Text>Hello!</Text>
+	      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+	      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+	    </View>
+	  );
+
 	render() {
 
 		return (
-			<View style={{flex: 1, padding: 20, justifyContent: 'space-evenly'}}>
-				<View style={{flex: 2}}>
-					<TextInput style={{flex: 1, textAlign: 'center'}} onChangeText={(text) => this.setState({text})}></TextInput>
-					<Text style={{flex: 1, textAlign: 'center', fontWeight: 'bold'}}>{this.state.text}</Text>
-				</View>
-				<View style={{flex: 5, justifyContent: 'space-evenly'}}>
-					<Button title="Save" onPress={() => this.saveData(this.state.text)}/>
-					<Button title="Get" onPress={() => this.getData()}/>
-					<Button title="Remove" onPress={() => this.removeFromList(this.state.text)}/>
-					<Button title="Clear" onPress={() => this.clearData()}/>
-				</View>
-			</View>
+			<View style={styles.container}>
+		        {this._renderButton('Default modal', () => this.setState({ visibleModal: 1 }))}
+		        {this._renderButton('Sliding from the sides', () => this.setState({ visibleModal: 2 }))}
+		        {this._renderButton('A slower modal', () => this.setState({ visibleModal: 3 }))}
+		        {this._renderButton('Fancy modal!', () => this.setState({ visibleModal: 4 }))}
+		        {this._renderButton('Bottom half modal', () => this.setState({ visibleModal: 5 }))}
+		        <Modal isVisible={this.state.visibleModal === 1}>
+		          {this._renderModalContent()}
+		        </Modal>
+		        <Modal
+		          isVisible={this.state.visibleModal === 2}
+		          animationIn={'slideInLeft'}
+		          animationOut={'slideOutRight'}
+		        >
+		          {this._renderModalContent()}
+		        </Modal>
+		        <Modal
+		          isVisible={this.state.visibleModal === 3}
+		          animationInTiming={2000}
+		          animationOutTiming={2000}
+		          backdropTransitionInTiming={2000}
+		          backdropTransitionOutTiming={2000}
+		        >
+		          {this._renderModalContent()}
+		        </Modal>
+		        <Modal
+		          isVisible={this.state.visibleModal === 4}
+		          backdropColor={'red'}
+		          backdropOpacity={1}
+		          animationIn={'zoomInDown'}
+		          animationOut={'zoomOutUp'}
+		          animationInTiming={1000}
+		          animationOutTiming={1000}
+		          backdropTransitionInTiming={1000}
+		          backdropTransitionOutTiming={1000}
+		        >
+		          {this._renderModalContent()}
+		        </Modal>
+		        <Modal isVisible={this.state.visibleModal === 5} style={styles.bottomModal}>
+		          {this._renderModalContent()}
+		        </Modal>
+		      </View>
 		)
 	}
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+});
