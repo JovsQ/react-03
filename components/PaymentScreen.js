@@ -39,6 +39,7 @@ export default class PaymentScreen extends Component {
 		const locker = this.props.navigation.getParam('locker', '0');
 		const price = parseInt(this.props.navigation.getParam('price', '0'), 10);
 		const status = 'pickup';
+		const code = Math.floor(100000 + Math.random() * 900000).toString();
 
 		if (currentPayment < price) {
 			currentPayment += insertAmount;
@@ -53,6 +54,7 @@ export default class PaymentScreen extends Component {
 					size: size,
 					locker: locker,
 					status: status
+					code: code
 				}
 
 				AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
