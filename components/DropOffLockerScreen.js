@@ -59,12 +59,12 @@ export default class DropOffLockerScreen extends Component {
 					if (selectedSize.length > 0) {
 						this.upateItems(phoneNumber, selectedSize[Math.floor(Math.random() * selectedSize.length)], accounts);
 					} else {
-						Alert.Alert(`No locker available.`)
+						Alert.alert(`No locker available.`)
 					}
 				}
 			})
 			.catch((error) => {
-				Alert.alert(`Line 66 error: ${error}`);
+				Alert.alert(`${error.message}`);
 			})
 		}
 	}
@@ -105,7 +105,7 @@ export default class DropOffLockerScreen extends Component {
 			)
 		})
 		.catch((error) => {
-			Alert.alert(`Line 104 error: ${error}`);
+			Alert.alert(`${error.message}`);
 		})
 	}
 
