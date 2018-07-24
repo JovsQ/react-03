@@ -96,10 +96,11 @@ export default class EnterPinScreen extends Component {
 		if (phoneNumber == ADMIN_NUMBER) {
 			this.sendAdminPin();
 		} else if (allAccounts.length > 0) {
+
 			var account;
 			for (a in allAccounts) {
 				if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'clean') {
-					account == allAccounts[a];
+					account = allAccounts[a];
 				}
 			}
 
@@ -236,7 +237,14 @@ export default class EnterPinScreen extends Component {
 		          					</TouchableOpacity>
 		          				</View>
 		          			</View>
-		          			<Text style={pinStyles.footerLabel}>If you did not receive a pin. <Text style={pinStyles.highlightBlack}>CLick Here</Text></Text>
+		          			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+		          				<Text style={pinStyles.footerLabel}>If you did not receive a pin. </Text> 
+			          			<TouchableOpacity onPress={() => this.resendPin()} style={{justifyContent: 'center'}}>
+			          				<Text style={pinStyles.highlightBlack}>Click Here</Text>
+			          			</TouchableOpacity>
+		          			</View>
+
+		          					          			
 		          		</View>
 	            	</View>
 	            	<View style={pinStyles.headerButtonRight}></View>
@@ -312,13 +320,16 @@ const pinStyles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	footerLabel: {
-		flex: 1,
 		fontWeight: '400',
 		fontSize: 16,
-		textAlign: 'center'
+		textAlign: 'center',
+		justifyContent: 'center'
 	},
 	highlightBlack: {
-		fontWeight: '700'
+		fontSize: 16,
+		textAlign: 'center',
+		fontWeight: '700',
+		justifyContent: 'center'
 	},
 	input: {
 		flex: 1,
