@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	View
 } from 'react-native';
+import SmsAndroid from 'react-native-sms-android';
 
 import appBG from '../images/app_bg.png';
 import check from '../images/check_circle.png';
@@ -19,10 +20,30 @@ export default class SuccessfulDropOffScreen extends Component {
 		Orientation.lockToLandscape();
 	}
 
+	sendCodeToCustomer() {
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const locker = this.props.navigation.getParam('locker', '0');
+		const code = this.props.navigation.getParam('code', '0');
+
+		const tempRecepient = '09950815097';
+		SmsAndroid.sms(
+			tempRecepient,
+			`phone number: ${phoneNumber} code: ${code}`,
+			'sendDirect',
+			(err, message) => {
+				if (err) {
+					Alert.aler(`${err}`)
+				} else {
+					this.props.navigation.navigate('DropOffLocker');
+				}
+			})
+	}
+
 	render() {
 
 		const { navigation } = this.props;
 		const locker = this.props.navigation.getParam('locker', '0');
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
 
 		return (
 			<ImageBackground source={appBG} style={dropOffStyles.container} alt='bg'>
@@ -40,10 +61,10 @@ export default class SuccessfulDropOffScreen extends Component {
 						<View style={dropOffStyles.rightLabel}>
 							<Text style={dropOffStyles.rightLabelText}>Locker <Text style={dropOffStyles.highlightBlue}>No. {locker}</Text></Text>
 							<Text style={dropOffStyles.rightLabelText}>has been assigned</Text>
-							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>09950815097</Text></Text>
+							<Text style={dropOffStyles.rightLabelText}>to <Text style={dropOffStyles.highlightBlue}>{phoneNumber}</Text></Text>
 						</View>
 						<View style={dropOffStyles.exitButtonContainer}>
-							<TouchableOpacity style={dropOffStyles.exitButton} onPress={() => navigation.navigate('DropOffLocker')}>
+							<TouchableOpacity style={dropOffStyles.exitButton} onPress={() => this.sendCodeToCustomer()}>
 								<Text style={dropOffStyles.exitButtonLabel}>Go back to Locker List</Text>
 							</TouchableOpacity>
 						</View>

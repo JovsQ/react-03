@@ -53,7 +53,7 @@ export default class PaymentScreen extends Component {
 					phoneNumber: phoneNumber,
 					size: size,
 					locker: locker,
-					status: status
+					status: status,
 					code: code
 				}
 

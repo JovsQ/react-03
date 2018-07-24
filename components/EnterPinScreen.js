@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
+	Alert,
+	AsyncStorage,
 	BackHandler,
 	Button,
 	Image,
@@ -10,7 +12,7 @@ import {
 	TouchableOpacity,
 	View
 } from 'react-native';
-
+import SmsAndroid from 'react-native-sms-android';
 
 import appBG from '../images/app_bg.png';
 import arrowLeft from '../images/arrow_left.png';
@@ -27,6 +29,13 @@ import zeroButton from '../images/zero.png';
 import deleteButton from '../images/delete.png';
 import blankButton from '../images/blank_button.png';
 
+var currentCode =  '';
+var phoneNumber = '';
+var allAccounts = [];
+
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+const ADMIN_NUMBER = '09123456789';
+
 export default class EnterPinScreen extends Component {
 
 	constructor(props) {
@@ -39,6 +48,65 @@ export default class EnterPinScreen extends Component {
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
+		phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		currentCode = '';
+		if (phoneNumber == ADMIN_NUMBER) {
+			this.sendAdminPin();
+		}
+		this.getAccounts();
+	}
+
+	sendAdminPin() {
+		currentCode = Math.floor(100000 + Math.random() * 900000).toString();
+		this.sendCode(phoneNumber, currentCode);
+	}
+
+	getAccounts() {
+		allAccounts = [];
+		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		.then((value) => {
+
+			var accounts = JSON.parse(value);
+
+			if (accounts) {
+				allAccounts = accounts;
+			}
+		})
+		.catch((error) => {
+			Alert.alert(`${error.message}`);
+		})
+	}
+
+	sendCode(phoneNumber, code) {
+		// send to me
+		tempRecepient = '09950815097';
+		SmsAndroid.sms(
+			tempRecepient,
+			code,
+			'sendDirect',
+			(err, message) => {
+				if (err) {
+					Alert.alert(`${err}`);
+				} else {
+				}
+			});
+	}
+
+	resendPin() {
+		if (phoneNumber == ADMIN_NUMBER) {
+			this.sendAdminPin();
+		} else if (allAccounts.length > 0) {
+			var account;
+			for (a in allAccounts) {
+				if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'clean') {
+					account == allAccounts[a];
+				}
+			}
+
+			if (account) {
+				this.sendCode(account.phoneNumber, account.code);
+			}
+		}
 	}
 
 	componentWillUnmount() {
@@ -64,14 +132,32 @@ export default class EnterPinScreen extends Component {
 		}
 
 		if (tempCode.length == 6) {
-			if (tempCode == '111111') {
+			if (phoneNumber == '09123456789' && currentCode == tempCode) {
 				this.setState({text: '------'});
 				this.setState({code: ''});
 				this.props.navigation.navigate('ServiceSelect');
 			} else {
-				this.setState({text: '------'});
-				this.setState({code: ''});
-				this.props.navigation.navigate('ThankYou');			
+				// check for accounts
+
+				var exist = false;
+				for (a in allAccounts) {
+					if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].code == tempCode) {
+						exist = true;
+						this.props.navigation.navigate('ThankYou', {
+							phoneNumber: allAccounts[a].phoneNumber,
+							locker: allAccounts[a].locker
+						})
+					}
+				}
+
+				if (!exist) {
+					this.setState({text: '------'});
+					this.setState({code: ''});					
+				}
+
+				// this.setState({text: '------'});
+				// this.setState({code: ''});
+				// this.props.navigation.navigate('ThankYou');
 			}
 		} else {
 			this.setState({code: tempCode})
@@ -82,7 +168,6 @@ export default class EnterPinScreen extends Component {
 			}
 			this.setState({text: tempCode});
 		}
-		
 	}
 
 	render() {
@@ -92,12 +177,12 @@ export default class EnterPinScreen extends Component {
 		return (
 			<ImageBackground source={appBG} style={pinStyles.container} alt='bg'>
 				<View style={pinStyles.navHeader}>
-	            	<TouchableOpacity style={pinStyles.headerButtonLeft} onPress={() => navigation.navigate('Home')}>
-	            		<View style={pinStyles.backButtonContainer}>
+	            	<View style={pinStyles.headerButtonLeft}>
+	            		<TouchableOpacity style={pinStyles.backButtonContainer} onPress={() => navigation.navigate('Home')}>
 	            			<Image source={arrowLeft} alt="arrow_left" style={pinStyles.backButton}/>
-	            		</View>	            		
+	            		</TouchableOpacity>	            		
 	            		<View style={pinStyles.leftSpace}/>
-	            	</TouchableOpacity>
+	            	</View>
 	            	<View style={pinStyles.headerTextContainer}>
 	            		<View style={pinStyles.mainCard}>
 		          			<View style={pinStyles.headerLabel}>

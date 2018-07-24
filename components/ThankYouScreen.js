@@ -5,6 +5,7 @@ import {
 	ImageBackground,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View
 } from 'react-native';
 
@@ -15,11 +16,22 @@ export default class ThankYouScreens extends Component {
 
 	componentDidMount() {
 		Orientaion.lockToLandscape();
+		this.getAllAccounts();
+	}
+
+	getAllAccounts() {
+
+	}
+
+	removeFromAccount(phoneNumber, locker) {
+
 	}
 
 	render() {
 
 		const { navigation } = this.props;
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const locker = this.props.navigation.getParam('locker', '0');
 
 		return (
 			<ImageBackground source={appBG} style={openLockerStyles.container} alt='bg'>
@@ -36,11 +48,16 @@ export default class ThankYouScreens extends Component {
 					<View style={openLockerStyles.rightContainer}>
 						<View style={openLockerStyles.rightLabel}>
 							<Text style={openLockerStyles.rightLabelText}>Please proceed</Text>
-							<Text style={openLockerStyles.rightLabelText}>to locker <Text style={openLockerStyles.highlightBlue}>No. 12</Text></Text>
+							<Text style={openLockerStyles.rightLabelText}>to locker <Text style={openLockerStyles.highlightBlue}>No. {locker}</Text></Text>
 						</View>
 						<View style={openLockerStyles.rightDetails}>
-							<Text style={openLockerStyles.rightLabelText}>Thank you for trusting</Text>
+							<Text style={openLockerStyles.rightLabelText}> Thank you for trusting</Text>
 							<Text style={openLockerStyles.rightLabelText}>our services!</Text>
+						</View>
+						<View style={openLockerStyles.exitButtonContainer}>
+							<TouchableOpacity style={openLockerStyles.exitButton} onPress={() => navigation.navigate('Home')}>
+								<Text style={openLockerStyles.exitButtonLabel}>Exit</Text>
+							</TouchableOpacity>
 						</View>
 	  				</View>
 				</View>
@@ -139,5 +156,25 @@ const openLockerStyles = StyleSheet.create({
 	highlightBlack: {
 		fontWeight: '700',
 		color: 'black'
+	},
+	exitButtonContainer: {
+		flex: 1,
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	exitButton: {
+		width: '70%',
+		backgroundColor: '#519FE2',
+		height: 40,
+		borderRadius: 5, 
+		elevation: 2,
+		alignItems: 'center',
+		justifyContent:'center'
+	},
+	exitButtonLabel: {
+		fontSize: 18, 
+		color: 'white',
+		textAlign: 'center'
 	}
 })

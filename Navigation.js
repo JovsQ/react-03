@@ -15,6 +15,7 @@ import {
 import { createStackNavigator, StackNavigator } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import Modal from 'react-native-modal';
+import SmsAndroid from 'react-native-sms-android';
 
 //screens
 import SampleScreen from './App';
@@ -31,7 +32,11 @@ import DropOffLockerScreen from './components/DropOffLockerScreen.js';
 import SuccessfulDropOffScreen from './components/SuccessfulDropOffScreen.js';
 
 //assets
-import appBG from './images/app_bg.png'
+import appBG from './images/app_bg.png';
+
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+
+var allAcounts = [];
 
 class HomeScreen extends Component {
 
@@ -43,12 +48,24 @@ class HomeScreen extends Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
+		// Alert.alert('Component did mount');
 		Orientation.lockToLandscape();
-		// AsyncStorage.getItem('phoneNumber').then((value) => this.textInput = value);
-		// Alert.alert(this.getStorageValue('phoneNumber'));
-		
-		// this.getStorageValue('smartLockAccounts');
+		// this.getAllAccounts();
+	}
+
+	getAllAccounts() {
+		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		.then((value) => {
+			var accounts = JSON.parse(value);
+			
+			if (accounts) {
+				allAcounts = accounts;
+			}
+		})
+		.catch((error) => {
+			Alert.alert(`${error.message}`);
+		})
 	}
 
 	async getStorageValue(key) {
@@ -59,40 +76,85 @@ class HomeScreen extends Component {
 	}
 
 	onChanged(event) {
+
 		this.setState({text: event.target.value});
 	}
 
-	validateNumber() {
-		if (this.state.text === '09123456789') {	
-			this.props.navigation.navigate('EnterPin', {
-              	phoneNumber: this.state.text,
-            })
-   //          if (this.state.text) {
-			// 	AsyncStorage.setItem('smartLockAccounts', this.state.text);	
-			// }
-            this.setState({text: ''});
-            this.textInput.clear();
-		} else if (this.state.text.length === 11) {
-			this.props.navigation.navigate('SelectLocker', {
-              	phoneNumber: this.state.text,
-            })
-   //          if (this.state.text) {
-			// 	AsyncStorage.setItem('smartLockAccounts', this.state.text);	
-			// }
-            this.setState({text: ''});
-            this.textInput.clear();
+	validateNumber(phoneNumber) {
+
+		const temporaryDefaultNumber = '09123456789';
+
+		if (phoneNumber == '09123456789') {
+			//send admin code
+			this.requirePin(phoneNumber);
 		} else {
-			// Alert.alert(this.state.text);
-			
-			// if (this.state.text) {
-			// 	AsyncStorage.setItem('phoneNumber', this.state.text);
-			// 	Alert.alert(this.state.text);	
-			// }			
-			// this.props.navigation.navigate('PickupLocker');
-			// this.setState({text: ''});
-			// this.textInput.clear();
-		}
-		
+			// if (allAcounts.length > 0) {
+			// 	var account;
+			// 	for (a in allAcounts) {
+			// 		if (allAcounts[a].phoneNumber == phoneNumber && allAcounts[a].status == 'clean') {
+			// 			account = allAcounts[a];
+			// 		}
+			// 	}
+
+			// 	if (account) {
+			// 		this.requirePin(phoneNumber);
+			// 	} else {
+			// 		this.selectLocker(phoneNumber);
+			// 	}
+			// } else {
+			// 	this.selectLocker(phoneNumber);
+			// }
+
+
+			AsyncStorage.getItem(SMART_LOCKER_KEY).then((value) => {
+				var accounts = JSON.parse(value);
+
+				if (accounts) {
+					var account;
+					for (a in accounts) {
+						if (accounts[a].phoneNumber == phoneNumber && accounts[a].status == 'clean') {
+							account = accounts[a];
+						}
+					}
+
+					if (account) {
+						this.requirePin(phoneNumber);
+					} else {
+						this.selectLocker(phoneNumber);
+					}
+				} else {
+					this.selectLocker(phoneNumber);
+				}
+			})
+		}		
+		this.setState({text: ''});
+		this.textInput.clear();
+	}
+
+	sendCode(phoneNumber, code) {
+		SmsAndroid.sms(
+			phoneNumber,
+			code,
+			'sendDirect',
+			(err, message) => {
+				if (err) {
+					Alert.alert(`${err}`);
+				} else {
+					this.moveScreen(phoneNumber, 'EnterPin');
+				}
+			});
+	}
+
+	selectLocker(phoneNumber) {
+		this.props.navigation.navigate('SelectLocker', {
+			phoneNumber: phoneNumber
+		})
+	}
+
+	requirePin(phoneNumber) {
+		this.props.navigation.navigate('EnterPin', {
+			phoneNumber: phoneNumber
+		})
 	}
 
 	randomNumberGenerator() {
@@ -139,7 +201,7 @@ class HomeScreen extends Component {
 
 	          <View style={{alignItems: 'center'}}>
 	            <TouchableOpacity style={{width: '30%', backgroundColor: '#519FE2', height: 40, borderRadius: 5, justifyContent: 'center', alignItems: 'center', elevation: 2}}
-	            onPress={() => this.validateNumber()}>
+	            onPress={() => this.validateNumber(this.state.text)}>
 	            	<Text style={{fontSize: 18, color: 'white'}}>Enter</Text>
 	            </TouchableOpacity>
 	          </View>
