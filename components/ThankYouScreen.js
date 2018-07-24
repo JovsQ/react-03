@@ -1,6 +1,8 @@
 import React, { Component } from 'React';
 import Orientaion from 'react-native-orientation';
 import {
+	Alert,
+	AsyncStorage,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -12,6 +14,10 @@ import {
 import appBG from '../images/app_bg.png';
 import check from '../images/check_circle.png';
 
+const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+
+var allAccounts = [];
+
 export default class ThankYouScreens extends Component {
 
 	componentDidMount() {
@@ -20,11 +26,35 @@ export default class ThankYouScreens extends Component {
 	}
 
 	getAllAccounts() {
+		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		.then((value) => {
+			var account = JSON.parse(value);
 
+			if (account) {
+				allAccounts = account;
+			}
+		})
+		.catch((error) => {
+			Alert.alert(`${error}`);
+		})
 	}
 
 	removeFromAccount(phoneNumber, locker) {
+		var remainingAccounts = [];
+		if (allAccounts.length > 0) {
+			for (a in allAccounts) {
+				if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].locker == locker) {
 
+				} else {
+					remainingAccounts.push(allAccounts[a]);
+				}
+			}
+
+			AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(remainingAccounts))
+			.then((value) => {
+				this.props.navigation.navigate('Home');
+			})
+		}
 	}
 
 	render() {
@@ -55,7 +85,7 @@ export default class ThankYouScreens extends Component {
 							<Text style={openLockerStyles.rightLabelText}>our services!</Text>
 						</View>
 						<View style={openLockerStyles.exitButtonContainer}>
-							<TouchableOpacity style={openLockerStyles.exitButton} onPress={() => navigation.navigate('Home')}>
+							<TouchableOpacity style={openLockerStyles.exitButton} onPress={() => this.removeFromAccount(phoneNumber, locker)}>
 								<Text style={openLockerStyles.exitButtonLabel}>Exit</Text>
 							</TouchableOpacity>
 						</View>
