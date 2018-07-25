@@ -1,6 +1,7 @@
 package com.lockerapp;
 
 import com.facebook.react.ReactActivity;
+import com.rusel.RCTBluetoothSerial.RCTBluetoothSerialPackage;
 import android.content.Intent;
 import android.content.res.Configuration;
 
