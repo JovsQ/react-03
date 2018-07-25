@@ -193,49 +193,46 @@ export default class EnterPinScreen extends Component {
 		          			<Text style={pinStyles.input}>{this.state.text}</Text>
 		          			<View style={pinStyles.numpad}>
 		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('1')}>
-		          						<Image source={oneButton} alt="one_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('2')}>
-		          						<Image source={twoButton} alt="two_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('3')}>
-		          						<Image source={threeButton} alt="three_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>		          					
-		          				</View>
-		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('4')}>
-		          						<Image source={fourButton} alt="four_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('5')}>
-		          						<Image source={fiveButton} alt="five_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('6')}>
-		          						<Image source={sixButton} alt="six_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          				</View>
-		          				<View style={pinStyles.numpadRow}>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('7')}>
-		          						<Image source={sevenButton} alt="seven_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('8')}>
-		          						<Image source={eightButton} alt="eight_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('9')}>
-		          						<Image source={nineButton} alt="nine_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          				</View>
-		          				<View style={pinStyles.numpadRow}>
-		          					<View style={pinStyles.numpadButton}>
-		          						<Image source={blankButton} alt="blank_button" style={pinStyles.numberButton}/>
-		          					</View>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('0')}>
-		          						<Image source={zeroButton} alt="zero_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          					<TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('delete')}>
-		          						<Image source={deleteButton} alt="delete_button" style={pinStyles.numberButton}/>
-		          					</TouchableOpacity>
-		          				</View>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('1')}>
+			                         	<Text style={pinStyles.numpadLabel}>1</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('2')}>
+			                          	<Text style={pinStyles.numpadLabel}>2</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('3')}>
+			                          	<Text style={pinStyles.numpadLabel}>3</Text>
+			                        </TouchableOpacity>                       
+			                    </View>
+			                    <View style={pinStyles.numpadRow}>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('4')}>
+			                          	<Text style={pinStyles.numpadLabel}>4</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('5')}>
+			                          	<Text style={pinStyles.numpadLabel}>5</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('6')}>
+			                          	<Text style={pinStyles.numpadLabel}>6</Text>
+			                        </TouchableOpacity>
+			                    </View>
+			                    <View style={pinStyles.numpadRow}>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('7')}>
+			                          	<Text style={pinStyles.numpadLabel}>7</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('8')}>
+			                          	<Text style={pinStyles.numpadLabel}>8</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('9')}>
+			                          	<Text style={pinStyles.numpadLabel}>9</Text>
+			                        </TouchableOpacity>
+			                    </View>
+			                    <View style={pinStyles.numpadRow}>
+			                        <TouchableOpacity style={pinStyles.numpadButton} onPress={() => this.enterPin('0')}>
+			                          	<Text style={pinStyles.numpadLabel}>0</Text>
+			                        </TouchableOpacity>
+			                        <TouchableOpacity style={pinStyles.numpadDeleteButton} onPress={() => this.enterPin('delete')}>
+			                          	<Text style={pinStyles.numpadLabel}>Delete</Text>
+			                        </TouchableOpacity>
+			                    </View>
 		          			</View>
 		          			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 		          				<Text style={pinStyles.footerLabel}>If you did not receive a pin. </Text> 
@@ -256,98 +253,116 @@ export default class EnterPinScreen extends Component {
 }
 
 const pinStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center'
-	}, 
-	navHeader: {
-		flex: 2,
-		flexDirection: 'row',
-		justifyContent: 'center'
-	},
-	headerButtonLeft: {
-		flex: 2,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	headerButtonRight: {
-		flex: 2
-	},
-	headerTextContainer: {
-		flex: 6,
-		justifyContent: 'center',
-		width: '100%',
-		padding: 20
-	},
-	backButtonContainer: {
-		flex: 2,
-		justifyContent: 'center'
-	},
-	backButton: {		
-		width: 25,
-		height: 25
-	},
-	numberButton:{
-		alignSelf: 'center',
-		width: 25,
-		height: 25
-	},
-	leftSpace: {
-		flex: 9
-	},
-	mainContent: {
-		flex: 9,
-		width: '100%',
-		paddingBottom: 20,
-		paddingLeft: 20,
-		paddingRight: 20
-	},
-	mainCard: {
-		flex: 1,
-		width: '100%',
-		elevation: 2,
-		alignSelf: 'center',
-		padding: 10,
-		backgroundColor: 'white',
-		borderRadius: 10
-	},
-	headerLabel: {
-		flex: 1.5
-	},
-	headerText: {
-		fontWeight: '400',
-		fontSize: 18,
-		textAlign: 'center'
-	},
-	footerLabel: {
-		fontWeight: '400',
-		fontSize: 16,
-		textAlign: 'center',
-		justifyContent: 'center'
-	},
-	highlightBlack: {
-		fontSize: 16,
-		textAlign: 'center',
-		fontWeight: '700',
-		justifyContent: 'center'
-	},
-	input: {
-		flex: 1,
-		fontWeight: '700',
-		fontSize: 20,
-		textAlign: 'center'
-	},
-	numpad: {
-		flex: 4
-	},
-	numpadRow: {
-		flex: 1,
-		width: '100%',
-		justifyContent: 'center',
-		flexDirection: 'row'
-	},
-	numpadButton: {
-		width: '20%',
-		justifyContent: 'center'
-	}
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  }, 
+  navHeader: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  headerButtonLeft: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerButtonRight: {
+    flex: 2
+  },
+  headerTextContainer: {
+    flex: 6,
+    justifyContent: 'center',
+    width: '100%',
+    padding: 20
+  },
+  backButtonContainer: {
+    flex: 2,
+    justifyContent: 'center'
+  },
+  backButton: {   
+    width: 25,
+    height: 25
+  },
+  numberButton:{
+    alignSelf: 'center',
+    width: 25,
+    height: 25
+  },
+  leftSpace: {
+    flex: 9
+  },
+  mainContent: {
+    flex: 9,
+    width: '100%',
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  mainCard: {
+    flex: 1,
+    width: '100%',
+    elevation: 2,
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 10
+  },
+  headerLabel: {
+    flex: 1.5
+  },
+  headerText: {
+    fontWeight: '400',
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  footerLabel: {
+    fontWeight: '400',
+    fontSize: 16,
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+  highlightBlack: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '700',
+    justifyContent: 'center'
+  },
+  input: {
+    flex: 1,
+    fontWeight: '700',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  numpad: {
+    flex: 4
+  },
+  numpadRow: {
+    flex: 1,
+    width: '100%',
+    marginTop: 2,
+    marginBottom: 2,
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
+  numpadButton: {
+    width: '33%',
+    justifyContent: 'center',
+    elevation: 2,
+    borderRadius: 5,
+    alignItems: 'center'
+  },
+  numpadDeleteButton: {
+    width: '66.3%',
+    justifyContent: 'center',
+    elevation: 2,
+    borderRadius: 5,
+    alignItems: 'center'
+  },
+  numpadLabel: {
+    fontWeight: '400',
+    fontSize: 18,
+    textAlign: 'center',
+    alignSelf: 'center'
+  }
 })
