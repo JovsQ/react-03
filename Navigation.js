@@ -34,6 +34,9 @@ import SuccessfulDropOffScreen from './components/SuccessfulDropOffScreen.js';
 //assets
 import appBG from './images/app_bg.png';
 
+//components
+import { ConfirmationModal } from './App/components/Modal'
+
 const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
 
 var allAcounts = [];
@@ -87,7 +90,7 @@ class HomeScreen extends Component {
 		if (phoneNumber == '09123456789') {
 			//send admin code
 			this.requirePin(phoneNumber);
-		} else {
+		} else if (phoneNumber.length == 11) {
 			// if (allAcounts.length > 0) {
 			// 	var account;
 			// 	for (a in allAcounts) {
@@ -202,13 +205,15 @@ class HomeScreen extends Component {
 	          <View style={{alignItems: 'center'}}>
 	            <TouchableOpacity style={{width: '30%', backgroundColor: '#519FE2', height: 40, borderRadius: 5, justifyContent: 'center', alignItems: 'center', elevation: 2}}
 	            onPress={() => this.validateNumber(this.state.text)}>
-	            	<Text style={{fontSize: 18, color: 'white'}}>Enter</Text>
+	            	<Text style={navigationStyles.buttonText}>Enter</Text>
 	            </TouchableOpacity>
 	          </View>
 
 	        </View>
 	        <Modal isVisible={this.state.modalVisible}>
-	        	{this.modalContent()}
+	        	<ConfirmationModal
+	        		onConfirm={() => Alert.alert('Confirmed!')}
+	        		onCancel={() => this.setState({ modalVisible: false })} />
 	        </Modal>
 
 	      </ImageBackground>
@@ -231,21 +236,42 @@ const navigationStyles = StyleSheet.create({
 	},
 	modalContent: {
 	    backgroundColor: 'white',
-	    padding: 22,
-	    justifyContent: 'center',
+	    width: '70%',
+	    height: '70%',
+	    padding: 10,
+	    justifyContent: 'space-evenly',
 	    alignItems: 'center',
+	    alignSelf: 'center',
 	    borderRadius: 4,
 	    borderColor: 'rgba(0, 0, 0, 0.1)',
 	},
 	modalText: {
 		fontWeight: '400',
 		fontSize: 18,
-		textAlign: 'left',
-		alignSelf: 'stretch'
+		textAlign: 'center',
+		alignSelf: 'center'
 	},
 	highlightBlue: {
 		fontWeight: '700',
 		color: '#519FE2'
+	},
+	buttonText: {
+		fontSize: 18, 
+		color: 'white'
+	},
+	modalButton: {
+		width: '40%',
+		height: 40, 
+		borderRadius: 5, 
+		justifyContent: 'center', 
+		alignItems: 'center', 
+		elevation: 2
+	},
+	positiveColor: {
+		backgroundColor: '#519FE2' 
+	},
+	negativeColor: {
+		backgroundColor: 'gray'
 	}
  
 });
