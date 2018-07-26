@@ -16,18 +16,6 @@ import SmsAndroid from 'react-native-sms-android';
 
 import appBG from '../images/app_bg.png';
 import arrowLeft from '../images/arrow_left.png';
-import oneButton from '../images/one.png';
-import twoButton from '../images/two.png';
-import threeButton from '../images/three.png';
-import fourButton from '../images/four.png';
-import fiveButton from '../images/five.png';
-import sixButton from '../images/six.png';
-import sevenButton from '../images/seven.png';
-import eightButton from '../images/eight.png';
-import nineButton from '../images/nine.png';
-import zeroButton from '../images/zero.png';
-import deleteButton from '../images/delete.png';
-import blankButton from '../images/blank_button.png';
 
 var currentCode =  '';
 var phoneNumber = '';

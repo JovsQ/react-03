@@ -208,8 +208,7 @@ const lockerStyles = StyleSheet.create({
 		color: '#519FE2'
 	},
 	bigLocker: {
-		flex: 1, 
-		aspectRatio: 1.5, 
+		flex: 1,  
 		resizeMode: 'contain', 
 		alignSelf: 'center'
 	},

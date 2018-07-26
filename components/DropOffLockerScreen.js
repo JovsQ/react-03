@@ -86,7 +86,7 @@ export default class DropOffLockerScreen extends Component {
 		var remainingAccounts = [];
 
 		for (a in allAccounts) {
-			if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'drop off') {
+			if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'drop off' && allAccounts[a].code == code) {
 				allAccounts[a].status = 'clean';
 				allAccounts[a].locker = locker;
 			}

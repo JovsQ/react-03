@@ -160,7 +160,6 @@ const paymentStyles = StyleSheet.create({
 	paymentImage: {
 	 	flex: 4,
 	 	padding: 20,
-	 	aspectRatio: 1.5,
 	 	resizeMode: 'contain',
 	 	alignSelf: 'center'
 	},
