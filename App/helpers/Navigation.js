@@ -3,7 +3,7 @@ import { createStackNavigator, StackNavigator } from 'react-navigation';
 //screens
 import Login from '../screens/Login';
 import LockerSelection from '../screens/LockerSelection';
-import PaymentScreen from '../../components/PaymentScreen';
+import PaymentScreen from '../screens/Payment';
 import OpenLockerScreen from '../../components/OpenLockerScreen';
 import EnterPinScreen from '../../components/EnterPinScreen';
 import ThankYouScreen from '../../components/ThankYouScreen';
