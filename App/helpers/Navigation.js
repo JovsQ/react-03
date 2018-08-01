@@ -4,7 +4,7 @@ import { createStackNavigator, StackNavigator } from 'react-navigation';
 import Login from '../screens/Login';
 import LockerSelection from '../screens/LockerSelection';
 import PaymentScreen from '../screens/Payment';
-import OpenLockerScreen from '../../components/OpenLockerScreen';
+import OpenLockerScreen from '../screens/OpenLocker';
 import EnterPinScreen from '../../components/EnterPinScreen';
 import ThankYouScreen from '../../components/ThankYouScreen';
 import ServiceSelectScreen from '../../components/ServiceSelectScreen.js';

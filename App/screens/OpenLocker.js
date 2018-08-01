@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
-	Button,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -11,9 +10,9 @@ import {
 } from 'react-native';
 
 
-import appBG from '../images/app_bg.png';
-import check from '../images/check_circle.png';
-import phone from '../images/phone.png';
+import appBG from '../assets/app_bg.png';
+import check from '../assets/check_circle.png';
+import phone from '../assets/phone.png';
 
 export default class OpenLockerScreen extends Component {
 	componentDidMount() {
@@ -23,10 +22,10 @@ export default class OpenLockerScreen extends Component {
 	render() {
 		const { navigation } = this.props;
 
-		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
-		const size = this.props.navigation.getParam('size', 'no size');
-		const price = this.props.navigation.getParam('price', '0'); 
-		const locker = this.props.navigation.getParam('locker', '0');
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '');
+		const size = this.props.navigation.getParam('size', '');
+		const price = this.props.navigation.getParam('price', ''); 
+		const locker = this.props.navigation.getParam('locker', '');
 
 		return (
 			<ImageBackground source={appBG} style={openLockerStyles.container} alt='bg'>
@@ -35,7 +34,7 @@ export default class OpenLockerScreen extends Component {
 						<Image source={check} alt='check_circle' style={openLockerStyles.check}/>
 						<Text style={openLockerStyles.leftText}>Locker</Text>
 						<Text style={openLockerStyles.leftText}>Successfully</Text>
-						<Text style={openLockerStyles.leftTextBold}>Opened!</Text>
+						<Text style={[openLockerStyles.leftText, openLockerStyles.bold]}>Opened!</Text>
 					</View>
 					<View style={openLockerStyles.line}>
 						<Text></Text>
@@ -103,11 +102,8 @@ const openLockerStyles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#519FE2'
 	},
-	leftTextBold: {
+	bold: {
 		fontWeight: '700',
-		fontSize: 20,
-		textAlign: 'center',
-		color: '#519FE2'
 	},
 	line: {
 		width: '1%',

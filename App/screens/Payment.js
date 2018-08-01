@@ -43,9 +43,6 @@ export default class PaymentScreen extends Component {
 		const status = 'pickup';
 		const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-		const exactAmount = 'Thank you for ggiving the exact amount.';
-		const excessAmount = `Your change is P${currentPayment - price}.00`;
-
 		if (currentPayment < price) {
 			currentPayment += insertAmount;
 			this.setState({
@@ -74,7 +71,7 @@ export default class PaymentScreen extends Component {
 					AsyncStorage.setItem(appKey, JSON.stringify(accounts))
 					.then((value) => {
 						var modalLabel = currentPayment == price ? 'Thank you for giving the exact amount.' :
-							`Your change is P${currentPayment - price}.00.`;
+							`Your change is P${currentPayment - price}.00`;
 
 						this.setState({modalVisible: true, modalLabel: modalLabel});
 
