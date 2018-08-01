@@ -106,49 +106,47 @@ export default class PaymentScreen extends Component {
 		const price = this.props.navigation.getParam('price', '0'); 
 
 		return (
-			<ImageBackground source={appBG} style={paymentStyles.container} alt='bg'>
-				<View style={{width: '60%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', padding: 30, elevation: 2}}>
-          			<Image source={insertCash} style={paymentStyles.paymentImage} alt="insert_cash"/>
-					<View style={{flex: 5, justifyContent: 'center'}}>
-						<Text style={paymentStyles.amount}>P{price}</Text>
-          				<Text style={paymentStyles.amountLabel}>Please Insert Payment</Text>
+			<ImageBackground source={appBG} style={ paymentStyles.container } alt='bg'>
+				<View style={ paymentStyles.amountContainer }>
+          			<Image source={insertCash} style={ paymentStyles.paymentImage } alt="insert_cash"/>
+					<View style={ paymentStyles.paymentLabel }>
+						<Text style={ paymentStyles.amount }>P{price}</Text>
+          				<Text style={ paymentStyles.amountLabel }>Please Insert Payment</Text>
 					</View>
 				</View>
 				
-				<View style={{width: '35%', backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', elevation: 2}}>
-					<View style={{flex: 5, width: '100%' , justifyContent: 'center', padding: 10}}>
-          				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
-          				<Text style={paymentStyles.amount}>P{this.state.amount}.00</Text>
-          				<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(20)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P20</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(50)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P50</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(100)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P100</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(200)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P200</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(500)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P500</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={paymentStyles.temporaryButtonContainer}>
-							<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(1000)}>
-								<Text style={paymentStyles.temporaryButtonLabel}>P1000</Text>
-							</TouchableOpacity>
-						</View>
+				<View style={ paymentStyles.temporaryPaymentContainer }>
+      				<Text style={paymentStyles.amountLabel}>Amount Inserted</Text>
+      				<Text style={paymentStyles.amount}>P{this.state.amount}.00</Text>
+      				<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(20)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P20</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(50)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P50</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(100)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P100</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(200)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P200</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(500)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P500</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={paymentStyles.temporaryButtonContainer}>
+						<TouchableOpacity style={paymentStyles.temporaryButton} onPress={() => this.insertPayement(1000)}>
+							<Text style={paymentStyles.temporaryButtonLabel}>P1000</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
 
@@ -172,11 +170,31 @@ const paymentStyles = StyleSheet.create({
 	    justifyContent: 'space-between',
 	    alignItems: 'center'
 	},
+	amountContainer: {
+		width: '60%', 
+		backgroundColor: 'white', 
+		borderRadius: 10, 
+		justifyContent: 'center', 
+		padding: 30, 
+		elevation: 2
+	},
 	paymentImage: {
 	 	flex: 4,
 	 	padding: 20,
 	 	resizeMode: 'contain',
 	 	alignSelf: 'center'
+	},
+	paymentLabel: {
+		flex: 5, 
+		justifyContent: 'center'
+	},
+	temporaryPaymentContainer: {
+		width: '35%', 
+		backgroundColor: 'white', 
+		borderRadius: 10, 
+		justifyContent: 'center', 
+		elevation: 2,
+		padding: 10
 	},
 	amountLabel: {
 		flex: 1,
@@ -211,6 +229,4 @@ const paymentStyles = StyleSheet.create({
 		color: 'white',
 		textAlign: 'center'
 	}
-
-
 });
