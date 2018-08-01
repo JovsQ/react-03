@@ -12,6 +12,10 @@ import {
 	View
 } from 'react-native';
 
+//components
+import { ChoiceModal, ConfirmationModal } from '../App/components/Modal'
+
+//images
 import appBG from '../images/app_bg.png';
 import lock from '../images/padlock.png';
 import arrowLeft from '../images/arrow_left.png';
@@ -25,7 +29,13 @@ export default class DropOffLockerScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			accounts: []
+			accounts: [],
+			modalVisible: false,
+			confirmModal: false,
+			phoneNumber: '',
+			size: '',
+			status: '',
+			code: ''
 		}
 	}
 
@@ -36,6 +46,7 @@ export default class DropOffLockerScreen extends Component {
 
 	itemSelected(phoneNumber, size, status, code) {
 		// TODO assign locker
+		this.setState({modalVisible: false});
 		if (status != 'clean') {
 			var selectedSize = size == 'big' ? BIG_LOCKERS : SMALL_LOCKERS;
 			AsyncStorage.getItem(SMART_LOCKER_KEY)
@@ -61,7 +72,7 @@ export default class DropOffLockerScreen extends Component {
 						const randomLocker = selectedSize[Math.floor(Math.random() * selectedSize.length)];
 						this.upateItems(phoneNumber, randomLocker, code, accounts);
 					} else {
-						Alert.alert(`No locker available.`)
+						this.setState({confirmModal: true});
 					}
 				}
 			})
@@ -143,6 +154,10 @@ export default class DropOffLockerScreen extends Component {
 			'white','#DCDCDC'
 		];
 
+		const title = 'to';
+		const additionalText = 'Assign locker';
+		const alertNoLockerAvailable = 'No locker available.';
+
 		return (
 			<ImageBackground source={appBG} alt="app_bg" style={dropOffStyles.container}>
 				<View style={dropOffStyles.navHeader}>
@@ -160,7 +175,7 @@ export default class DropOffLockerScreen extends Component {
 				        data={this.state.accounts}
 				       	keyExtractor={(item, index) => index.toString()}
 				        renderItem={({item, index}) => <TouchableOpacity style={{backgroundColor: colors[index % colors.length], flex: 1,	flexDirection: 'row', padding: 10, paddingLeft: 30, paddingRight: 30}}
-				        onPress={this.itemSelected.bind(this, item.phoneNumber, item.size, item.status, item.code)}>
+				        onPress={() => this.setState({ phoneNumber: item.phoneNumber, size: item.size, status: item.status, code: item.code, modalVisible: true})}>
 				        	<Text style={dropOffStyles.item} >{item.phoneNumber}</Text>
 				        	<Text style={dropOffStyles.lockerNo} >{this.showLocker(item.status, item.locker)}</Text>
 				        </TouchableOpacity>}/>
@@ -169,6 +184,20 @@ export default class DropOffLockerScreen extends Component {
 				        </TouchableOpacity>
 	          		</View>	          		
 	          	</View>
+
+	          	<ChoiceModal 
+	          	title={ title }
+	          	highlight={ this.state.phoneNumber }
+	          	additionalText={ additionalText }
+	          	onConfirm={() => this.itemSelected(this.state.phoneNumber, this.state.size, this.state.status, this.state.code)}
+	          	onCancel={() => this.setState({modalVisible: false})}
+	          	isVisible={ this.state.modalVisible }
+	          	/>
+
+	          	<ConfirmationModal
+	          	text={ alertNoLockerAvailable }
+        		isVisible={ this.state.confirmModal }
+        		onConfirm={() => this.setState({ confirmModal: false })} />
 			</ImageBackground>
 		)
 	}

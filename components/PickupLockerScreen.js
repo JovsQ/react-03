@@ -13,7 +13,10 @@ import {
 	View
 } from 'react-native';
 
+//components
+import { ChoiceModal } from '../App/components/Modal';
 
+//images
 import appBG from '../images/app_bg.png';
 import lock from '../images/padlock.png';
 import arrowLeft from '../images/arrow_left.png';
@@ -25,7 +28,11 @@ export default class PickupLockerScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			accounts : []
+			accounts: [],
+			modalVisible: false,
+			locker: '',
+			specificLocker: 0,
+			phoneNumber: ''
 		}
 	}
 
@@ -67,6 +74,8 @@ export default class PickupLockerScreen extends Component {
 					})
 				})		
 			})
+
+			this.setState({modalVisible: false});
 		})
 	}
 
@@ -96,6 +105,9 @@ export default class PickupLockerScreen extends Component {
 		const colors = [
 			'white','#DCDCDC'
 		]
+		const title = 'Open locker';
+		var highlight = 'No. ';
+		const additionalText = '';
 
 		return (
 			<ImageBackground source={appBG} alt="app_bg" style={pickupStyles.container}>
@@ -114,7 +126,7 @@ export default class PickupLockerScreen extends Component {
 				        data={this.state.accounts}
 				       	keyExtractor={(item, index) => index.toString()}
 				        renderItem={({item, index}) => <TouchableOpacity style={{backgroundColor: colors[index % colors.length], flex: 1,	flexDirection: 'row', padding: 10, paddingLeft: 10, paddingRight: 30}}
-				        onPress={this.itemSelected.bind(this, item.phoneNumber, item.locker)}>
+				        onPress={() => this.setState({modalVisible: true, locker: `No. ${item.locker}`, phoneNumber: item.phoneNumber, specificLocker: item.locker})}>
 				        	<Image source={lock} alt='lock' style={pickupStyles.lock}/>
 				        	<Text style={pickupStyles.item} >{item.phoneNumber}</Text>
 				        	<Text style={pickupStyles.lockerNo} >#{item.locker}</Text>
@@ -124,6 +136,15 @@ export default class PickupLockerScreen extends Component {
 				        </TouchableOpacity>
 	          		</View>	          		
 	          	</View>
+
+	          	<ChoiceModal 
+	          	title={ title }
+	          	highlight={ this.state.locker }
+	          	additionalText={ additionalText }
+	          	onConfirm={() => this.itemSelected(this.state.phoneNumber, this.state.specificLocker)}
+	          	onCancel={() => this.setState({modalVisible: false})}
+	          	isVisible={ this.state.modalVisible }
+	          	/>
 			</ImageBackground>
 		)
 	}

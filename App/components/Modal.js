@@ -7,13 +7,13 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 
-export const ChoiceModal = ({ onConfirm, onCancel, isVisible }) =>
+export const ChoiceModal = ({ title, highlight, additionalText, onConfirm, onCancel, isVisible }) =>
 	<Modal isVisible={ isVisible }>
 		<View style={ modalStyles.content }>
-			<View style={ modalStyles.labelContainer }>
-		  		<Text style={ modalStyles.text }>Assign locker</Text>
-		    	<Text style={ modalStyles.text }>to <Text style={ modalStyles.highlightBlue }>09950815097</Text></Text>
-		  	</View>
+		  	<ModalLabel
+		  		title={ title }
+		  		highlight={ highlight }
+		  		additionalText={ additionalText }/>
 		    <View style={ modalStyles.buttonsContainer }>
 		    	<ModalButton
 			    title='No'
@@ -44,6 +44,24 @@ export const ConfirmationModal = ({ text, onConfirm, isVisible }) =>
 		    </View>    
 		</View>
 	</Modal>
+
+const ModalLabel = ({ title, highlight, additionalText }) =>
+	{
+		if (additionalText != '') {
+			return (
+				<View style={ modalStyles.labelContainer }>
+			  		<Text style={ modalStyles.text }>{ additionalText }</Text>
+			    	<Text style={ modalStyles.text }>{ title } <Text style={ modalStyles.highlightBlue }>{ highlight }</Text>?</Text>
+			  	</View>
+			)
+		} else {
+			return (
+				<View style={ modalStyles.labelContainer }>
+			  		<Text style={ modalStyles.text }>{ title } <Text style={ modalStyles.highlightBlue }>{ highlight }</Text>?</Text>
+			  	</View>
+			)			
+		}
+	}
 
 const ModalButton = ({ title, onPress, color}) =>
   	<TouchableOpacity style={[modalStyles.button, color]} onPress={onPress}>
