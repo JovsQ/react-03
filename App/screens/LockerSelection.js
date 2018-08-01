@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-	Alert,
 	AsyncStorage,
 	BackHandler,
-	Button,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -12,56 +10,54 @@ import {
 	View
 } from 'react-native';
 import Orientation from 'react-native-orientation';
-import { createStackNavigator } from 'react-navigation';
-import SampleScreen from './App';
-import AsyncStorageHelper from './AsyncStorageHelper';
 
-import appBG from './images/app_bg.png';
-import arrowLeft from './images/arrow_left.png';
-import smallLocker from './images/small_locker.png';
-import bigLocker from './images/big_locker.png';
+//assets
+import appBG from '../assets/app_bg.png';
+import arrowLeft from '../assets/arrow_left.png';
+import smallLocker from '../assets/small_locker.png';
+import bigLocker from '../assets/big_locker.png';
 
-const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
-const BIG_LOCKERS = ['1', '2', '3'];
-const SMALL_LOCKERS = ['4', '5', '6'];
+import { alertNotAvailable, appKey, smallLockers, bigLockers } from '../helpers/Constants';
 
 //components
-import { ConfirmationModal } from './App/components/Modal';
+import { ConfirmationModal } from '../components/Modal';
 
 export default class LockerSelection extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalVisible: false
+			modalVisible: false,
+			phoneNumber: ''
 		}
 	}
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
-		BackHandler.addEventListener('hardwareBackPress', this.hadleBackButton);
+		BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 	}
 
 	componentWillUnmount() {
-		BackHandler.removeEventListener('hardwareBackPress', this.hadleBackButton);
+		BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
 	}
 
-	hadleBackButton() {
+	handleBackButton() {
 		return true;
 	}
 
 	assignLocker(size) {
 
-		var selectedSize = size == 'big' ? BIG_LOCKERS : SMALL_LOCKERS;
+		var selectedSize = size == 'big' ? bigLockers : smallLockers;
 		const selecteSize = size == 'big' ? 'Big Locker' : 'Small Locker';
 		const price = size == 'big' ? 600 : 400;
-		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		AsyncStorage.getItem(appKey)
 		.then((value) => {
 			var accounts = JSON.parse(value);
 	
 			if (!accounts) {
 				this.props.navigation.navigate('Payment', {
-					phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
+					phoneNumber: phoneNumber,
 					size: size,
 					price: price,
 					locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
@@ -80,16 +76,14 @@ export default class LockerSelection extends Component {
 
 				if (selectedSize.length > 0) {
 					this.props.navigation.navigate('Payment', {
-						phoneNumber: this.props.navigation.getParam('phoneNumber', '0'),
+						phoneNumber: phoneNumber,
 						size: size,
 						price: price,
 						locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
 					});
 				} else {
 					this.setState({modalVisible: true});
-					// Alert.alert(`No locker available`);
-				}
-				
+				}				
 			}
 		})
 	}
@@ -107,8 +101,6 @@ export default class LockerSelection extends Component {
 	render() {
 
 		const { navigation } = this.props;
-		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
-		const alertNoLockerAvailable = 'No locker available.';
 
 		return (
 			<ImageBackground source={appBG} alt="bg" style={lockerStyles.container}>
@@ -145,7 +137,7 @@ export default class LockerSelection extends Component {
 	            	
 	          	</View>
 	          	<ConfirmationModal
-	          	text={ alertNoLockerAvailable }
+	          	text={ alertNotAvailable }
         		isVisible={ this.state.modalVisible }
         		onConfirm={() => this.setState({ modalVisible: false })} />
 			</ImageBackground>
