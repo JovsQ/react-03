@@ -35,7 +35,7 @@ import SuccessfulDropOffScreen from './components/SuccessfulDropOffScreen.js';
 import appBG from './images/app_bg.png';
 
 //components
-import { ConfirmationModal } from './App/components/Modal'
+import { ChoiceModal, ConfirmationModal } from './App/components/Modal'
 
 const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
 
@@ -210,11 +210,9 @@ class HomeScreen extends Component {
 	          </View>
 
 	        </View>
-	        <Modal isVisible={this.state.modalVisible}>
-	        	<ConfirmationModal
-	        		onConfirm={() => Alert.alert('Confirmed!')}
-	        		onCancel={() => this.setState({ modalVisible: false })} />
-	        </Modal>
+	        <ConfirmationModal
+        		isVisible={ this.state.modalVisible }
+        		onConfirm={() => this.setState({ modalVisible: false })} />
 
 	      </ImageBackground>
 	    );

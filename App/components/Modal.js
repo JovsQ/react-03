@@ -5,31 +5,55 @@ import {
 	TouchableOpacity,
 	View
 } from 'react-native';
+import Modal from 'react-native-modal';
 
-export const ConfirmationModal = ({ onConfirm, onCancel }) =>
-	<View style={ modalStyles.content }>
-	  	<View style={ modalStyles.labelContainer }>
-	  		<Text style={ modalStyles.text }>Assign locker</Text>
-	    	<Text style={ modalStyles.text }>to <Text style={ modalStyles.highlightBlue }>09950815097</Text></Text>
-	  	</View>
-	    <View style={ modalStyles.buttonsContainer }>
-	    	<ModalButton
-		    title='No'
-		    onPress={ onCancel }
-		    color={ modalStyles.negativeColor }
-		    />
-	    	<ModalButton
-		    title='Yes'
-		    onPress={ onConfirm }
-		    color={ modalStyles.positiveColor }
-		    />		    
-	    </View>    
-	</View>
+export const ChoiceModal = ({ onConfirm, onCancel, isVisible }) =>
+	<Modal isVisible={ isVisible }>
+		<View style={ modalStyles.content }>
+			<View style={ modalStyles.labelContainer }>
+		  		<Text style={ modalStyles.text }>Assign locker</Text>
+		    	<Text style={ modalStyles.text }>to <Text style={ modalStyles.highlightBlue }>09950815097</Text></Text>
+		  	</View>
+		    <View style={ modalStyles.buttonsContainer }>
+		    	<ModalButton
+			    title='No'
+			    onPress={ onCancel }
+			    color={ modalStyles.negativeColor }
+			    />
+		    	<ModalButton
+			    title='Yes'
+			    onPress={ onConfirm }
+			    color={ modalStyles.positiveColor }
+			    />		    
+		    </View>    
+		</View>
+	</Modal>
+
+export const ConfirmationModal = ({ text, onConfirm, isVisible }) =>
+	<Modal isVisible={ isVisible }>
+		<View style={ modalStyles.content }>
+			<View style={ modalStyles.labelContainer }>
+		  		<Text style={ modalStyles.text }>{ text }</Text>
+		  	</View>
+		    <View style={ modalStyles.buttonsContainer }>
+		    	<ModalFullButton
+			    title='Ok'
+			    onPress={ onConfirm }
+			    color={ modalStyles.positiveColor }
+			    />		    
+		    </View>    
+		</View>
+	</Modal>
 
 const ModalButton = ({ title, onPress, color}) =>
   	<TouchableOpacity style={[modalStyles.button, color]} onPress={onPress}>
 	    <Text style={modalStyles.buttonText}>{title}</Text>
   	</TouchableOpacity>
+
+const ModalFullButton = ({ title, onPress, color }) =>
+	<TouchableOpacity style={[modalStyles.button, modalStyles.fullButton, color]} onPress={onPress}>
+	    <Text style={modalStyles.buttonText}>{title}</Text>
+  	</TouchableOpacity>	
 
 const modalStyles = StyleSheet.create({
 	content: {
@@ -82,5 +106,8 @@ const modalStyles = StyleSheet.create({
 		justifyContent: 'center', 
 		alignItems: 'center', 
 		elevation: 2
+	},
+	fullButton: {
+		width: '80%'
 	}
 });

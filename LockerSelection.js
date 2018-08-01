@@ -25,7 +25,17 @@ const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
 const BIG_LOCKERS = ['1', '2', '3'];
 const SMALL_LOCKERS = ['4', '5', '6'];
 
+//components
+import { ConfirmationModal } from './App/components/Modal';
+
 export default class LockerSelection extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			modalVisible: false
+		}
+	}
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
@@ -76,7 +86,8 @@ export default class LockerSelection extends Component {
 						locker: selectedSize[Math.floor(Math.random() * selectedSize.length)]
 					});
 				} else {
-					Alert.alert(`No locker available`);
+					this.setState({modalVisible: true});
+					// Alert.alert(`No locker available`);
 				}
 				
 			}
@@ -97,6 +108,7 @@ export default class LockerSelection extends Component {
 
 		const { navigation } = this.props;
 		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const alertNoLockerAvailable = 'No locker available.';
 
 		return (
 			<ImageBackground source={appBG} alt="bg" style={lockerStyles.container}>
@@ -132,6 +144,10 @@ export default class LockerSelection extends Component {
 	          		</TouchableOpacity>
 	            	
 	          	</View>
+	          	<ConfirmationModal
+	          	text={ alertNoLockerAvailable }
+        		isVisible={ this.state.modalVisible }
+        		onConfirm={() => this.setState({ modalVisible: false })} />
 			</ImageBackground>
 		)
 	}

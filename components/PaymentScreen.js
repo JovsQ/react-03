@@ -15,14 +15,19 @@ import {
 import appBG from '../images/app_bg.png';
 import insertCash from '../images/insert_cash.png';
 
+//components
+import { ConfirmationModal } from '../App/components/Modal';
+
 const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
+var modalLabel;
 
 export default class PaymentScreen extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			amount: '0'
+			amount: '0',
+			modalVisible: false
 		}
 	}
 
@@ -40,6 +45,9 @@ export default class PaymentScreen extends Component {
 		const price = parseInt(this.props.navigation.getParam('price', '0'), 10);
 		const status = 'pickup';
 		const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+		const exactAmount = 'Thank you for ggiving the exact amount.';
+		const excessAmount = `Your change is P${currentPayment - price}.00`;
 
 		if (currentPayment < price) {
 			currentPayment += insertAmount;
@@ -68,22 +76,42 @@ export default class PaymentScreen extends Component {
 
 					AsyncStorage.setItem(SMART_LOCKER_KEY, JSON.stringify(accounts))
 					.then((value) => {
-						if (currentPayment == price) {
-							Alert.alert(`Thank you for giving the exact amount`);
-						} else {
-							Alert.alert(`Your change is P${currentPayment - price}.00`);
-						}
-						this.props.navigation.navigate('OpenLocker', {
-							phoneNumber: phoneNumber, 
-							size: size, 
-							price: price,
-							locker: locker
-						});
+						modalLabel = currentPayment == price ? 'Thank you for giving the exact amount.' :
+							`Your change is P${currentPayment - price}.00.`;
+
+						this.setState({modalVisible: true});
+
+						// if (currentPayment == price) {
+						// 	Alert.alert(`Thank you for giving the exact amount.`);
+						// } else {
+						// 	Alert.alert(`Your change is P${currentPayment - price}.00.`);
+						// }
+						// this.props.navigation.navigate('OpenLocker', {
+						// 	phoneNumber: phoneNumber, 
+						// 	size: size, 
+						// 	price: price,
+						// 	locker: locker
+						// });
 					})
 				})
 			}
 		}
 		
+	}
+
+	openLocker() {
+		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
+		const size = this.props.navigation.getParam('size', 'no size');
+		const locker = this.props.navigation.getParam('locker', '0');
+		const price = parseInt(this.props.navigation.getParam('price', '0'), 10);
+		
+		this.setState({ modalVisible: false });
+		this.props.navigation.navigate('OpenLocker', {
+			phoneNumber: phoneNumber, 
+			size: size, 
+			price: price,
+			locker: locker
+		});
 	}
 
 	render() {
@@ -141,6 +169,11 @@ export default class PaymentScreen extends Component {
 						</View>
 					</View>
 				</View>
+
+				<ConfirmationModal
+	          	text={ modalLabel }
+        		isVisible={ this.state.modalVisible }
+        		onConfirm={() => this.openLocker()} />
 				
 			</ImageBackground>
 		);
