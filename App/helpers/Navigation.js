@@ -5,7 +5,7 @@ import Login from '../screens/Login';
 import LockerSelection from '../screens/LockerSelection';
 import PaymentScreen from '../screens/Payment';
 import OpenLockerScreen from '../screens/OpenLocker';
-import EnterPinScreen from '../../components/EnterPinScreen';
+import EnterPinScreen from '../screens/EnterPin';
 import ThankYouScreen from '../../components/ThankYouScreen';
 import ServiceSelectScreen from '../../components/ServiceSelectScreen.js';
 import PickupLockerScreen from '../../components/PickupLockerScreen.js';

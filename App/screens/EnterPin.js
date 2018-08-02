@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
-	Alert,
 	AsyncStorage,
-	BackHandler,
-	Button,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -14,15 +11,11 @@ import {
 } from 'react-native';
 import SmsAndroid from 'react-native-sms-android';
 
-import appBG from '../images/app_bg.png';
-import arrowLeft from '../images/arrow_left.png';
+import appBG from '../assets/app_bg.png';
+import arrowLeft from '../assets/arrow_left.png';
 
-var currentCode =  '';
-var phoneNumber = '';
-var allAccounts = [];
-
-const SMART_LOCKER_KEY = 'SMART LOCKER KEY';
-const ADMIN_NUMBER = '09123456789';
+import { appKey, adminNumber } from '../helpers/Constants';
+import { generateRandomCode } from '../helpers/Utils';
 
 export default class EnterPinScreen extends Component {
 
@@ -30,34 +23,37 @@ export default class EnterPinScreen extends Component {
 		super(props);
 		this.state = {
 			text: '------',
-			code: ''
+			code: '',
+			currentCode: '',
+			phoneNumber: '',
+			allAccounts: []
 		}
 	}
 
 	componentDidMount() {
 		Orientation.lockToLandscape();
 		phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
-		currentCode = '';
-		if (phoneNumber == ADMIN_NUMBER) {
+		this.setState({phoneNumber: phoneNumber});
+		if (phoneNumber == adminNumber) {
 			this.sendAdminPin();
 		}
 		this.getAccounts();
 	}
 
 	sendAdminPin() {
-		currentCode = Math.floor(100000 + Math.random() * 900000).toString();
+		currentCode = generateRandomCode();
 		this.sendCode(phoneNumber, currentCode);
 	}
 
 	getAccounts() {
 		allAccounts = [];
-		AsyncStorage.getItem(SMART_LOCKER_KEY)
+		AsyncStorage.getItem(appKey)
 		.then((value) => {
 
 			var accounts = JSON.parse(value);
 
 			if (accounts) {
-				allAccounts = accounts;
+				this.state.allAccounts = accounts;
 			}
 		})
 		.catch((error) => {
@@ -66,10 +62,8 @@ export default class EnterPinScreen extends Component {
 	}
 
 	sendCode(phoneNumber, code) {
-		// send to me
-		tempRecepient = '09950815097';
 		SmsAndroid.sms(
-			tempRecepient,
+			phoneNumber,
 			code,
 			'sendDirect',
 			(err, message) => {
@@ -81,10 +75,10 @@ export default class EnterPinScreen extends Component {
 	}
 
 	resendPin() {
-		if (phoneNumber == ADMIN_NUMBER) {
+		if (phoneNumber == adminNumber) {
 			this.sendAdminPin();
-		} else if (allAccounts.length > 0) {
-
+		} else if (this.state.allAccounts.length > 0) {
+			const allAccounts = this.state.allAccounts;
 			var account;
 			for (a in allAccounts) {
 				if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].status == 'clean') {
@@ -96,10 +90,6 @@ export default class EnterPinScreen extends Component {
 				this.sendCode(account.phoneNumber, account.code);
 			}
 		}
-	}
-
-	componentWillUnmount() {
-
 	}
 
 	validatePin() {
@@ -121,16 +111,14 @@ export default class EnterPinScreen extends Component {
 		}
 
 		if (tempCode.length == 6) {
-			if (phoneNumber == '09123456789' && currentCode == tempCode) {
-				this.setState({text: '------'});
-				this.setState({code: ''});
+			if (this.state.phoneNumber == adminNumber && currentCode == tempCode) {
+				this.setState({text: '------', code: ''});
 				this.props.navigation.navigate('ServiceSelect');
 			} else {
-				// check for accounts
-
+				const allAccounts = this.state.allAccounts;
 				var exist = false;
-				for (a in allAccounts) {
-					if (allAccounts[a].phoneNumber == phoneNumber && allAccounts[a].code == tempCode) {
+				for (a in this.state.allAccounts) {
+					if (allAccounts[a].phoneNumber == this.state.phoneNumber && allAccounts[a].code == tempCode) {
 						exist = true;
 						this.props.navigation.navigate('ThankYou', {
 							phoneNumber: allAccounts[a].phoneNumber,
@@ -140,13 +128,8 @@ export default class EnterPinScreen extends Component {
 				}
 
 				if (!exist) {
-					this.setState({text: '------'});
-					this.setState({code: ''});					
+					this.setState({text: '------', code: ''});					
 				}
-
-				// this.setState({text: '------'});
-				// this.setState({code: ''});
-				// this.props.navigation.navigate('ThankYou');
 			}
 		} else {
 			this.setState({code: tempCode})
@@ -161,7 +144,6 @@ export default class EnterPinScreen extends Component {
 
 	render() {
 		const { navigation } = this.props;
-		const phoneNumber = this.props.navigation.getParam('phoneNumber', '0');
 
 		return (
 			<ImageBackground source={appBG} style={pinStyles.container} alt='bg'>
