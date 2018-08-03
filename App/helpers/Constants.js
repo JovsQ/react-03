@@ -1,5 +1,8 @@
 
 export const alertNotAvailable = 'No available locker.';
+
+export const colors = ['white','#DCDCDC'];
+
 //temporary values
 export const appKey = 'SMART LOCKER KEY';
 export const adminNumber = '09950815097';

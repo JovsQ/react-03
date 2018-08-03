@@ -7,10 +7,10 @@ import PaymentScreen from '../screens/Payment';
 import OpenLockerScreen from '../screens/OpenLocker';
 import EnterPinScreen from '../screens/EnterPin';
 import ThankYouScreen from '../../components/ThankYouScreen';
-import ServiceSelectScreen from '../../components/ServiceSelectScreen.js';
+import ServiceSelectScreen from '../screens/ServiceSelect.js';
 import PickupLockerScreen from '../../components/PickupLockerScreen.js';
 import SuccessfulPickupScreen from '../../components/SuccessfulPickupScreen.js';
-import DropOffLockerScreen from '../../components/DropOffLockerScreen.js';
+import DropOffLockerScreen from '../screens/DropOff.js';
 import SuccessfulDropOffScreen from '../../components/SuccessfulDropOffScreen.js';
 
 export default createStackNavigator({

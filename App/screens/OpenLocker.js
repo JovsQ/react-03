@@ -9,7 +9,6 @@ import {
 	View
 } from 'react-native';
 
-
 import appBG from '../assets/app_bg.png';
 import check from '../assets/check_circle.png';
 import phone from '../assets/phone.png';
