@@ -6,7 +6,7 @@ import LockerSelection from '../screens/LockerSelection';
 import PaymentScreen from '../screens/Payment';
 import OpenLockerScreen from '../screens/OpenLocker';
 import EnterPinScreen from '../screens/EnterPin';
-import ThankYouScreen from '../../components/ThankYouScreen';
+import ThankYouScreen from '../screens/CustomerClaim';
 import ServiceSelectScreen from '../screens/ServiceSelect.js';
 import PickupLockerScreen from '../../components/PickupLockerScreen.js';
 import SuccessfulPickupScreen from '../../components/SuccessfulPickupScreen.js';
