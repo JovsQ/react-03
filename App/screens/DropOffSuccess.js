@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Orientation from 'react-native-orientation';
 import {
-	Button,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -11,8 +10,8 @@ import {
 } from 'react-native';
 import SmsAndroid from 'react-native-sms-android';
 
-import appBG from '../images/app_bg.png';
-import check from '../images/check_circle.png';
+import appBG from '../assets/app_bg.png';
+import check from '../assets/check_circle.png';
 
 export default class SuccessfulDropOffScreen extends Component {
 
@@ -25,7 +24,9 @@ export default class SuccessfulDropOffScreen extends Component {
 		const locker = this.props.navigation.getParam('locker', '0');
 		const code = this.props.navigation.getParam('code', '0');
 
-		const tempRecepient = '09950815097';
+		//temporary recepient for testing
+		//replace recepient before deployment
+		const tempRecepient = '09950815097'; 
 		SmsAndroid.sms(
 			tempRecepient,
 			`phone number: ${phoneNumber} code: ${code}`,

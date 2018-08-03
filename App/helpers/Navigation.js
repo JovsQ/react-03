@@ -11,7 +11,7 @@ import ServiceSelectScreen from '../screens/ServiceSelect.js';
 import PickupLockerScreen from '../../components/PickupLockerScreen.js';
 import SuccessfulPickupScreen from '../../components/SuccessfulPickupScreen.js';
 import DropOffLockerScreen from '../screens/DropOff';
-import SuccessfulDropOffScreen from '../../components/SuccessfulDropOffScreen.js';
+import SuccessfulDropOffScreen from '../screens/DropOffSuccess';
 
 export default createStackNavigator({
 	Home: { 

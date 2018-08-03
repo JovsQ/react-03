@@ -1,4 +1,4 @@
-
+//alert
 export const alertNotAvailable = 'No available locker.';
 
 export const colors = ['white','#DCDCDC'];
