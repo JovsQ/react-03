@@ -10,8 +10,8 @@ import {
 	View
 } from 'react-native';
 
-import appBG from '../images/app_bg.png';
-import check from '../images/check_circle.png';
+import appBG from '../assets/app_bg.png';
+import check from '../assets/check_circle.png';
 
 export default class SuccessfulPickupScreen extends Component {
 

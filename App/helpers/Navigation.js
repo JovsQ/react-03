@@ -9,7 +9,7 @@ import EnterPinScreen from '../screens/EnterPin';
 import ThankYouScreen from '../screens/CustomerClaim';
 import ServiceSelectScreen from '../screens/ServiceSelect';
 import PickupLockerScreen from '../screens/Pickup';
-import SuccessfulPickupScreen from '../../components/SuccessfulPickupScreen.js';
+import SuccessfulPickupScreen from '../screens/PickupSuccess.js';
 import DropOffLockerScreen from '../screens/DropOff';
 import SuccessfulDropOffScreen from '../screens/DropOffSuccess';
 
